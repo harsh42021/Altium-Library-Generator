@@ -1,0 +1,50 @@
+name: Build Windows Installer
+
+# Runs on Microsoft's hosted Windows runners — no Windows machine
+# needed on your end. Push this repo to GitHub, then either:
+#   - it runs automatically on every push to main, or
+#   - trigger it manually from the Actions tab ("Run workflow")
+# When it finishes, download the installer from the workflow run's
+# "Artifacts" section (bottom of the run summary page).
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pyinstaller pdfplumber
+
+      - name: Build executable with PyInstaller
+        run: |
+          pyinstaller installer/pyinstaller/altium_libgen.spec --distpath dist --workpath build --noconfirm
+
+      - name: Install Inno Setup
+        run: |
+          choco install innosetup -y
+
+      - name: Build installer with Inno Setup
+        run: |
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer\innosetup\installer.iss
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AltiumLibraryGeneratorSetup
+          path: installer/output/AltiumLibraryGeneratorSetup.exe
+          if-no-files-found: error
