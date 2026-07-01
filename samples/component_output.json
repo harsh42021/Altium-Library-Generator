@@ -1,0 +1,977 @@
+{
+  "part_number": "MCU-TEST-001",
+  "manufacturer": null,
+  "pin_count": 23,
+  "pins": [
+    {
+      "pin_number": "1",
+      "primary_name": "VDD",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "1 | VDD | Power | - | Digital supply"
+    },
+    {
+      "pin_number": "2",
+      "primary_name": "VSS",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "Ground",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "from description column"
+        }
+      ],
+      "functional_group": "POWER",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "2 | VSS | Power | - | Ground"
+    },
+    {
+      "pin_number": "3",
+      "primary_name": "NRST",
+      "electrical_type": "Input",
+      "drive_structure": "open-drain",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "Reset",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "from description column"
+        }
+      ],
+      "functional_group": "RESET",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "3 | NRST | I/O | Open-drain | Reset, active low"
+    },
+    {
+      "pin_number": "4",
+      "primary_name": "PA5",
+      "electrical_type": "Input",
+      "drive_structure": "push-pull",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "SPI1_SCK",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "from description column"
+        },
+        {
+          "function_name": "GPIO",
+          "interface_group": null,
+          "mux_code": "AF0",
+          "notes": null
+        }
+      ],
+      "functional_group": "SPI1",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "4 | PA5 | I/O | Push-pull | GPIO / SPI1_SCK"
+    },
+    {
+      "pin_number": "5",
+      "primary_name": "PA6",
+      "electrical_type": "Input",
+      "drive_structure": "push-pull",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "SPI1_MISO",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "from description column"
+        },
+        {
+          "function_name": "GPIO",
+          "interface_group": null,
+          "mux_code": "AF0",
+          "notes": null
+        }
+      ],
+      "functional_group": "SPI1",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "5 | PA6 | I/O | Push-pull | GPIO / SPI1_MISO"
+    },
+    {
+      "pin_number": "6",
+      "primary_name": "PA7",
+      "electrical_type": "Input",
+      "drive_structure": "push-pull",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "SPI1_MOSI",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "from description column"
+        },
+        {
+          "function_name": "GPIO",
+          "interface_group": null,
+          "mux_code": "AF0",
+          "notes": null
+        }
+      ],
+      "functional_group": "SPI1",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "6 | PA7 | I/O | Push-pull | GPIO / SPI1_MOSI"
+    },
+    {
+      "pin_number": "7",
+      "primary_name": "PA4",
+      "electrical_type": "Input",
+      "drive_structure": "push-pull",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "SPI1_NSS",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "from description column"
+        }
+      ],
+      "functional_group": "SPI1",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "7 | PA4 | I/O | Push-pull | GPIO / SPI1_NSS"
+    },
+    {
+      "pin_number": "8",
+      "primary_name": "PB6",
+      "electrical_type": "Input",
+      "drive_structure": "open-drain",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "I2C1_SCL",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "from description column"
+        }
+      ],
+      "functional_group": "I2C1",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "8 | PB6 | I/O | Open-drain | GPIO / I2C1_SCL"
+    },
+    {
+      "pin_number": "9",
+      "primary_name": "PB7",
+      "electrical_type": "Input",
+      "drive_structure": "open-drain",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "I2C1_SDA",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "from description column"
+        }
+      ],
+      "functional_group": "I2C1",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "9 | PB7 | I/O | Open-drain | GPIO / I2C1_SDA"
+    },
+    {
+      "pin_number": "10",
+      "primary_name": "PA9",
+      "electrical_type": "Input",
+      "drive_structure": "push-pull",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "USART1_TX",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "from description column"
+        },
+        {
+          "function_name": "GPIO",
+          "interface_group": null,
+          "mux_code": "AF0",
+          "notes": null
+        }
+      ],
+      "functional_group": "UART1",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "10 | PA9 | I/O | Push-pull | GPIO / USART1_TX"
+    },
+    {
+      "pin_number": "11",
+      "primary_name": "PA10",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "USART1_RX",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "from description column"
+        },
+        {
+          "function_name": "GPIO",
+          "interface_group": null,
+          "mux_code": "AF0",
+          "notes": null
+        }
+      ],
+      "functional_group": "UART1",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 0.3,
+      "raw_source_text": "11 | PA10 | I/O | Input | GPIO / USART1_RX"
+    },
+    {
+      "pin_number": "12",
+      "primary_name": "PA11",
+      "electrical_type": "Input",
+      "drive_structure": "analog",
+      "diff_pair_role": "N",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "USB_DM",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "from description column"
+        }
+      ],
+      "functional_group": "USB",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "12 | PA11 | I/O | Analog | USB_DM"
+    },
+    {
+      "pin_number": "13",
+      "primary_name": "PA12",
+      "electrical_type": "Input",
+      "drive_structure": "analog",
+      "diff_pair_role": "P",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "USB_DP",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "from description column"
+        }
+      ],
+      "functional_group": "USB",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "13 | PA12 | I/O | Analog | USB_DP"
+    },
+    {
+      "pin_number": "14",
+      "primary_name": "VDDA",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "14 | VDDA | Power | - | Analog supply"
+    },
+    {
+      "pin_number": "15",
+      "primary_name": "VSSA",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "15 | VSSA | Power | - | Analog ground"
+    },
+    {
+      "pin_number": "16",
+      "primary_name": "TCK",
+      "electrical_type": "Input",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "JTAG_SWD",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "16 | TCK | Input | - | JTAG clock"
+    },
+    {
+      "pin_number": "17",
+      "primary_name": "TMS",
+      "electrical_type": "Input",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "JTAG_SWD",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "17 | TMS | Input | - | JTAG mode select"
+    },
+    {
+      "pin_number": "18",
+      "primary_name": "TDI",
+      "electrical_type": "Input",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "JTAG_SWD",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "18 | TDI | Input | - | JTAG data in"
+    },
+    {
+      "pin_number": "19",
+      "primary_name": "TDO",
+      "electrical_type": "Output",
+      "drive_structure": "push-pull",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "JTAG_SWD",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "19 | TDO | Output | Push-pull | JTAG data out"
+    },
+    {
+      "pin_number": "20",
+      "primary_name": "PC13",
+      "electrical_type": "Input",
+      "drive_structure": "push-pull",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "20 | PC13 | I/O | Push-pull | GPIO"
+    },
+    {
+      "pin_number": "21",
+      "primary_name": "PC14",
+      "electrical_type": "Input",
+      "drive_structure": "push-pull",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "OSC32_IN",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "from description column"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "21 | PC14 | I/O | Push-pull | GPIO / OSC32_IN"
+    },
+    {
+      "pin_number": "22",
+      "primary_name": "PC15",
+      "electrical_type": "Input",
+      "drive_structure": "push-pull",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "OSC32_OUT",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "from description column"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "22 | PC15 | I/O | Push-pull | GPIO / OSC32_OUT"
+    },
+    {
+      "pin_number": "23",
+      "primary_name": "NC",
+      "electrical_type": "Unknown",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "NO_CONNECT",
+      "side_hint": "bottom",
+      "is_no_connect": true,
+      "source_confidence": 1.0,
+      "raw_source_text": "23 | NC | - | - | No connect"
+    }
+  ],
+  "groups": [
+    {
+      "name": "POWER",
+      "pins": [
+        {
+          "pin_number": "1",
+          "primary_name": "VDD",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "1 | VDD | Power | - | Digital supply"
+        },
+        {
+          "pin_number": "2",
+          "primary_name": "VSS",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "Ground",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "from description column"
+            }
+          ],
+          "functional_group": "POWER",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "2 | VSS | Power | - | Ground"
+        },
+        {
+          "pin_number": "14",
+          "primary_name": "VDDA",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "14 | VDDA | Power | - | Analog supply"
+        },
+        {
+          "pin_number": "15",
+          "primary_name": "VSSA",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "15 | VSSA | Power | - | Analog ground"
+        }
+      ],
+      "side": "bottom",
+      "part_index": 1
+    },
+    {
+      "name": "RESET",
+      "pins": [
+        {
+          "pin_number": "3",
+          "primary_name": "NRST",
+          "electrical_type": "Input",
+          "drive_structure": "open-drain",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "Reset",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "from description column"
+            }
+          ],
+          "functional_group": "RESET",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "3 | NRST | I/O | Open-drain | Reset, active low"
+        }
+      ],
+      "side": "left",
+      "part_index": 1
+    },
+    {
+      "name": "SPI1",
+      "pins": [
+        {
+          "pin_number": "4",
+          "primary_name": "PA5",
+          "electrical_type": "Input",
+          "drive_structure": "push-pull",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "SPI1_SCK",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "from description column"
+            },
+            {
+              "function_name": "GPIO",
+              "interface_group": null,
+              "mux_code": "AF0",
+              "notes": null
+            }
+          ],
+          "functional_group": "SPI1",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "4 | PA5 | I/O | Push-pull | GPIO / SPI1_SCK"
+        },
+        {
+          "pin_number": "5",
+          "primary_name": "PA6",
+          "electrical_type": "Input",
+          "drive_structure": "push-pull",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "SPI1_MISO",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "from description column"
+            },
+            {
+              "function_name": "GPIO",
+              "interface_group": null,
+              "mux_code": "AF0",
+              "notes": null
+            }
+          ],
+          "functional_group": "SPI1",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "5 | PA6 | I/O | Push-pull | GPIO / SPI1_MISO"
+        },
+        {
+          "pin_number": "6",
+          "primary_name": "PA7",
+          "electrical_type": "Input",
+          "drive_structure": "push-pull",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "SPI1_MOSI",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "from description column"
+            },
+            {
+              "function_name": "GPIO",
+              "interface_group": null,
+              "mux_code": "AF0",
+              "notes": null
+            }
+          ],
+          "functional_group": "SPI1",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "6 | PA7 | I/O | Push-pull | GPIO / SPI1_MOSI"
+        },
+        {
+          "pin_number": "7",
+          "primary_name": "PA4",
+          "electrical_type": "Input",
+          "drive_structure": "push-pull",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "SPI1_NSS",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "from description column"
+            }
+          ],
+          "functional_group": "SPI1",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "7 | PA4 | I/O | Push-pull | GPIO / SPI1_NSS"
+        }
+      ],
+      "side": "right",
+      "part_index": 1
+    },
+    {
+      "name": "I2C1",
+      "pins": [
+        {
+          "pin_number": "8",
+          "primary_name": "PB6",
+          "electrical_type": "Input",
+          "drive_structure": "open-drain",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "I2C1_SCL",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "from description column"
+            }
+          ],
+          "functional_group": "I2C1",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "8 | PB6 | I/O | Open-drain | GPIO / I2C1_SCL"
+        },
+        {
+          "pin_number": "9",
+          "primary_name": "PB7",
+          "electrical_type": "Input",
+          "drive_structure": "open-drain",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "I2C1_SDA",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "from description column"
+            }
+          ],
+          "functional_group": "I2C1",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "9 | PB7 | I/O | Open-drain | GPIO / I2C1_SDA"
+        }
+      ],
+      "side": "right",
+      "part_index": 1
+    },
+    {
+      "name": "UART1",
+      "pins": [
+        {
+          "pin_number": "10",
+          "primary_name": "PA9",
+          "electrical_type": "Input",
+          "drive_structure": "push-pull",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "USART1_TX",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "from description column"
+            },
+            {
+              "function_name": "GPIO",
+              "interface_group": null,
+              "mux_code": "AF0",
+              "notes": null
+            }
+          ],
+          "functional_group": "UART1",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "10 | PA9 | I/O | Push-pull | GPIO / USART1_TX"
+        },
+        {
+          "pin_number": "11",
+          "primary_name": "PA10",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "USART1_RX",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "from description column"
+            },
+            {
+              "function_name": "GPIO",
+              "interface_group": null,
+              "mux_code": "AF0",
+              "notes": null
+            }
+          ],
+          "functional_group": "UART1",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 0.3,
+          "raw_source_text": "11 | PA10 | I/O | Input | GPIO / USART1_RX"
+        }
+      ],
+      "side": "right",
+      "part_index": 1
+    },
+    {
+      "name": "USB",
+      "pins": [
+        {
+          "pin_number": "12",
+          "primary_name": "PA11",
+          "electrical_type": "Input",
+          "drive_structure": "analog",
+          "diff_pair_role": "N",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "USB_DM",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "from description column"
+            }
+          ],
+          "functional_group": "USB",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "12 | PA11 | I/O | Analog | USB_DM"
+        },
+        {
+          "pin_number": "13",
+          "primary_name": "PA12",
+          "electrical_type": "Input",
+          "drive_structure": "analog",
+          "diff_pair_role": "P",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "USB_DP",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "from description column"
+            }
+          ],
+          "functional_group": "USB",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "13 | PA12 | I/O | Analog | USB_DP"
+        }
+      ],
+      "side": "right",
+      "part_index": 1
+    },
+    {
+      "name": "JTAG_SWD",
+      "pins": [
+        {
+          "pin_number": "16",
+          "primary_name": "TCK",
+          "electrical_type": "Input",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "JTAG_SWD",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "16 | TCK | Input | - | JTAG clock"
+        },
+        {
+          "pin_number": "17",
+          "primary_name": "TMS",
+          "electrical_type": "Input",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "JTAG_SWD",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "17 | TMS | Input | - | JTAG mode select"
+        },
+        {
+          "pin_number": "18",
+          "primary_name": "TDI",
+          "electrical_type": "Input",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "JTAG_SWD",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "18 | TDI | Input | - | JTAG data in"
+        },
+        {
+          "pin_number": "19",
+          "primary_name": "TDO",
+          "electrical_type": "Output",
+          "drive_structure": "push-pull",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "JTAG_SWD",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "19 | TDO | Output | Push-pull | JTAG data out"
+        }
+      ],
+      "side": "left",
+      "part_index": 1
+    },
+    {
+      "name": "GPIO",
+      "pins": [
+        {
+          "pin_number": "20",
+          "primary_name": "PC13",
+          "electrical_type": "Input",
+          "drive_structure": "push-pull",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "20 | PC13 | I/O | Push-pull | GPIO"
+        },
+        {
+          "pin_number": "21",
+          "primary_name": "PC14",
+          "electrical_type": "Input",
+          "drive_structure": "push-pull",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "OSC32_IN",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "from description column"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "21 | PC14 | I/O | Push-pull | GPIO / OSC32_IN"
+        },
+        {
+          "pin_number": "22",
+          "primary_name": "PC15",
+          "electrical_type": "Input",
+          "drive_structure": "push-pull",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "OSC32_OUT",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "from description column"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "22 | PC15 | I/O | Push-pull | GPIO / OSC32_OUT"
+        }
+      ],
+      "side": "left",
+      "part_index": 1
+    },
+    {
+      "name": "NO_CONNECT",
+      "pins": [
+        {
+          "pin_number": "23",
+          "primary_name": "NC",
+          "electrical_type": "Unknown",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "NO_CONNECT",
+          "side_hint": "bottom",
+          "is_no_connect": true,
+          "source_confidence": 1.0,
+          "raw_source_text": "23 | NC | - | - | No connect"
+        }
+      ],
+      "side": "bottom",
+      "part_index": 1
+    }
+  ],
+  "package_type": null,
+  "is_multi_part": false,
+  "extraction_warnings": [
+    "1 pin(s) have low-confidence type/structure classification \u2014 flagged for manual review"
+  ]
+}

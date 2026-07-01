@@ -1,0 +1,2147 @@
+{
+  "part_number": "LAN8842",
+  "manufacturer": null,
+  "pin_count": 57,
+  "pins": [
+    {
+      "pin_number": "1",
+      "primary_name": "VDDAL_PLL",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "1 | VDDAL_PLL",
+      "display_label": "VDDAL_PLL"
+    },
+    {
+      "pin_number": "29",
+      "primary_name": "RES_REF",
+      "electrical_type": "Input",
+      "drive_structure": "analog",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "MISCELLANEOUS",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "29 | RES_REF",
+      "display_label": "RES_REF"
+    },
+    {
+      "pin_number": "2",
+      "primary_name": "ISET",
+      "electrical_type": "Input",
+      "drive_structure": "analog",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "MISCELLANEOUS",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "2 | ISET",
+      "display_label": "ISET"
+    },
+    {
+      "pin_number": "30",
+      "primary_name": "MDIO",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "MISCELLANEOUS",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "30 | MDIO",
+      "display_label": "MDIO"
+    },
+    {
+      "pin_number": "3",
+      "primary_name": "VDDAH",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "3 | VDDAH",
+      "display_label": "VDDAH"
+    },
+    {
+      "pin_number": "31",
+      "primary_name": "MDC",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "MISCELLANEOUS",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "31 | MDC",
+      "display_label": "MDC"
+    },
+    {
+      "pin_number": "4",
+      "primary_name": "TX_RXP_A",
+      "electrical_type": "IO",
+      "drive_structure": "analog",
+      "diff_pair_role": "P",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "ETHERNET_MEDIA_INTERFACE",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "4 | TX_RXP_A",
+      "display_label": "TX_RXP_A"
+    },
+    {
+      "pin_number": "32",
+      "primary_name": "INT_N",
+      "electrical_type": "Output",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "MISCELLANEOUS",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "32 | INT_N",
+      "display_label": "INT_N"
+    },
+    {
+      "pin_number": "5",
+      "primary_name": "TX_RXN_A",
+      "electrical_type": "IO",
+      "drive_structure": "analog",
+      "diff_pair_role": "N",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "ETHERNET_MEDIA_INTERFACE",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "5 | TX_RXN_A",
+      "display_label": "TX_RXN_A"
+    },
+    {
+      "pin_number": "33",
+      "primary_name": "NC",
+      "electrical_type": "Unknown",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "MISCELLANEOUS",
+      "side_hint": "left",
+      "is_no_connect": true,
+      "source_confidence": 0.3,
+      "raw_source_text": "33 | NC",
+      "display_label": "NC"
+    },
+    {
+      "pin_number": "6",
+      "primary_name": "VDDAL_ADC_AB_GPHY",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "6 | VDDAL_ADC_AB_GPHY",
+      "display_label": "VDDAL_ADC_AB_GPHY"
+    },
+    {
+      "pin_number": "34",
+      "primary_name": "NC",
+      "electrical_type": "Unknown",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "MISCELLANEOUS",
+      "side_hint": "left",
+      "is_no_connect": true,
+      "source_confidence": 0.3,
+      "raw_source_text": "34 | NC",
+      "display_label": "NC"
+    },
+    {
+      "pin_number": "7",
+      "primary_name": "TX_RXP_B",
+      "electrical_type": "IO",
+      "drive_structure": "analog",
+      "diff_pair_role": "P",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "ETHERNET_MEDIA_INTERFACE",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "7 | TX_RXP_B",
+      "display_label": "TX_RXP_B"
+    },
+    {
+      "pin_number": "35",
+      "primary_name": "VDDCORE",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "35 | VDDCORE",
+      "display_label": "VDDCORE"
+    },
+    {
+      "pin_number": "8",
+      "primary_name": "TX_RXN_B",
+      "electrical_type": "IO",
+      "drive_structure": "analog",
+      "diff_pair_role": "N",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "ETHERNET_MEDIA_INTERFACE",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "8 | TX_RXN_B",
+      "display_label": "TX_RXN_B"
+    },
+    {
+      "pin_number": "36",
+      "primary_name": "VDDIO",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "36 | VDDIO",
+      "display_label": "VDDIO"
+    },
+    {
+      "pin_number": "9",
+      "primary_name": "VDDAH_GPHY",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "9 | VDDAH_GPHY",
+      "display_label": "VDDAH_GPHY"
+    },
+    {
+      "pin_number": "37",
+      "primary_name": "GPIO0",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "1588_EVENT_A",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "IEEE_1588"
+        },
+        {
+          "function_name": "LED_MODE",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "CONFIGURATION_STRAP_INPUT"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "37 | GPIO0/1588_EVENT_A/LED_MODE",
+      "display_label": "GPIO0/1588_EVENT_A/LED_MODE"
+    },
+    {
+      "pin_number": "10",
+      "primary_name": "TX_RXP_C",
+      "electrical_type": "IO",
+      "drive_structure": "analog",
+      "diff_pair_role": "P",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "ETHERNET_MEDIA_INTERFACE",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "10 | TX_RXP_C",
+      "display_label": "TX_RXP_C"
+    },
+    {
+      "pin_number": "38",
+      "primary_name": "GPIO1",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "1588_EVENT_B",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "IEEE_1588"
+        },
+        {
+          "function_name": "MODE_SEL0",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "CONFIGURATION_STRAP_INPUT"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "38 | GPIO1/1588_EVENT_B/MODE_SEL0",
+      "display_label": "GPIO1/1588_EVENT_B/MODE_SEL0"
+    },
+    {
+      "pin_number": "11",
+      "primary_name": "TX_RXN_C",
+      "electrical_type": "IO",
+      "drive_structure": "analog",
+      "diff_pair_role": "N",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "ETHERNET_MEDIA_INTERFACE",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "11 | TX_RXN_C",
+      "display_label": "TX_RXN_C"
+    },
+    {
+      "pin_number": "39",
+      "primary_name": "GPIO2",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "1588_REF_CLK",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "IEEE_1588"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "39 | GPIO2/1588_REF_CLK",
+      "display_label": "GPIO2/1588_REF_CLK"
+    },
+    {
+      "pin_number": "12",
+      "primary_name": "VDDAL_ADC_CD_GPHY",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "12 | VDDAL_ADC_CD_GPHY",
+      "display_label": "VDDAL_ADC_CD_GPHY"
+    },
+    {
+      "pin_number": "40",
+      "primary_name": "GPIO3",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "1588_LD_ADJ",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "IEEE_1588"
+        },
+        {
+          "function_name": "MODE_SEL1",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "CONFIGURATION_STRAP_INPUT"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "40 | GPIO3/1588_LD_ADJ/MODE_SEL1",
+      "display_label": "GPIO3/1588_LD_ADJ/MODE_SEL1"
+    },
+    {
+      "pin_number": "13",
+      "primary_name": "TX_RXP_D",
+      "electrical_type": "IO",
+      "drive_structure": "analog",
+      "diff_pair_role": "P",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "ETHERNET_MEDIA_INTERFACE",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "13 | TX_RXP_D",
+      "display_label": "TX_RXP_D"
+    },
+    {
+      "pin_number": "41",
+      "primary_name": "GPIO4",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "MODE_SEL2",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "CONFIGURATION_STRAP_INPUT"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "41 | GPIO4/MODE_SEL2",
+      "display_label": "GPIO4/MODE_SEL2"
+    },
+    {
+      "pin_number": "14",
+      "primary_name": "TX_RXN_D",
+      "electrical_type": "IO",
+      "drive_structure": "analog",
+      "diff_pair_role": "N",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "ETHERNET_MEDIA_INTERFACE",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "14 | TX_RXN_D",
+      "display_label": "TX_RXN_D"
+    },
+    {
+      "pin_number": "42",
+      "primary_name": "GPIO5",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "MODE_SEL3",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "CONFIGURATION_STRAP_INPUT"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "42 | GPIO5/MODE_SEL3",
+      "display_label": "GPIO5/MODE_SEL3"
+    },
+    {
+      "pin_number": "15",
+      "primary_name": "TEST_MODE",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "MISCELLANEOUS",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "15 | TEST_MODE",
+      "display_label": "TEST_MODE"
+    },
+    {
+      "pin_number": "43",
+      "primary_name": "GPIO6",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "MODE_SEL4",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "CONFIGURATION_STRAP_INPUT"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "43 | GPIO6/MODE_SEL4",
+      "display_label": "GPIO6/MODE_SEL4"
+    },
+    {
+      "pin_number": "16",
+      "primary_name": "RESET_N",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "MISCELLANEOUS",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "16 | RESET_N",
+      "display_label": "RESET_N"
+    },
+    {
+      "pin_number": "44",
+      "primary_name": "GPIO7",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "RCVRD_CLK_IN1",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET"
+        },
+        {
+          "function_name": "TDI",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "JTAG"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "44 | GPIO7/RCVRD_CLK_IN1/TDI",
+      "display_label": "GPIO7/RCVRD_CLK_IN1/TDI"
+    },
+    {
+      "pin_number": "17",
+      "primary_name": "COMA_MODE",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "MISCELLANEOUS",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "17 | COMA_MODE",
+      "display_label": "COMA_MODE"
+    },
+    {
+      "pin_number": "45",
+      "primary_name": "VDDIO",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "45 | VDDIO",
+      "display_label": "VDDIO"
+    },
+    {
+      "pin_number": "18",
+      "primary_name": "GPIO14",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "LED1",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "MISCELLANEOUS"
+        },
+        {
+          "function_name": "PHYAD3",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "CONFIGURATION_STRAP_INPUT"
+        },
+        {
+          "function_name": "LED1_POL",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "CONFIGURATION_STRAP_INPUT"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "18 | GPIO14/LED1/PHYAD3/LED1_POL",
+      "display_label": "GPIO14/LED1/PHYAD3/LED1_POL"
+    },
+    {
+      "pin_number": "46",
+      "primary_name": "GPIO8",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "RCVRD_CLK_IN2",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET"
+        },
+        {
+          "function_name": "TDO",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "JTAG"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "46 | GPIO8/RCVRD_CLK_IN2/TDO",
+      "display_label": "GPIO8/RCVRD_CLK_IN2/TDO"
+    },
+    {
+      "pin_number": "19",
+      "primary_name": "GPIO15",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "LED2",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "MISCELLANEOUS"
+        },
+        {
+          "function_name": "PHYAD4",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "CONFIGURATION_STRAP_INPUT"
+        },
+        {
+          "function_name": "LED2_POL",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "CONFIGURATION_STRAP_INPUT"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "19 | GPIO15/LED2/PHYAD4/LED2_POL",
+      "display_label": "GPIO15/LED2/PHYAD4/LED2_POL"
+    },
+    {
+      "pin_number": "47",
+      "primary_name": "GPIO9",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "RCVRD_CLK_OUT1",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET"
+        },
+        {
+          "function_name": "TMS",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "JTAG"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "47 | GPIO9/RCVRD_CLK_OUT1/TMS",
+      "display_label": "GPIO9/RCVRD_CLK_OUT1/TMS"
+    },
+    {
+      "pin_number": "20",
+      "primary_name": "VDDIO",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "20 | VDDIO",
+      "display_label": "VDDIO"
+    },
+    {
+      "pin_number": "48",
+      "primary_name": "GPIO10",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "RCVRD_CLK_OUT2",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET"
+        },
+        {
+          "function_name": "TCK",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "JTAG"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "48 | GPIO10/RCVRD_CLK_OUT2/TCK",
+      "display_label": "GPIO10/RCVRD_CLK_OUT2/TCK"
+    },
+    {
+      "pin_number": "21",
+      "primary_name": "VDDCORE",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "21 | VDDCORE",
+      "display_label": "VDDCORE"
+    },
+    {
+      "pin_number": "49",
+      "primary_name": "GPIO11",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "CK25OUT",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET"
+        },
+        {
+          "function_name": "PHYAD0",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "CONFIGURATION_STRAP_INPUT"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "49 | GPIO11/CK25OUT/PHYAD0",
+      "display_label": "GPIO11/CK25OUT/PHYAD0"
+    },
+    {
+      "pin_number": "22",
+      "primary_name": "SEL_2V5_VDDAH",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "MISCELLANEOUS",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "22 | SEL_2V5_VDDAH",
+      "display_label": "SEL_2V5_VDDAH"
+    },
+    {
+      "pin_number": "50",
+      "primary_name": "GPIO12",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "PHYAD1",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "CONFIGURATION_STRAP_INPUT"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "50 | GPIO12/PHYAD1",
+      "display_label": "GPIO12/PHYAD1"
+    },
+    {
+      "pin_number": "23",
+      "primary_name": "SGMII_RXP",
+      "electrical_type": "Input",
+      "drive_structure": "analog",
+      "diff_pair_role": "P",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "SGMII_INTERFACE",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "23 | SGMII_RXP",
+      "display_label": "SGMII_RXP"
+    },
+    {
+      "pin_number": "51",
+      "primary_name": "GPIO13",
+      "electrical_type": "Input",
+      "drive_structure": "schmitt-trigger",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [
+        {
+          "function_name": "SOF",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "MISCELLANEOUS"
+        },
+        {
+          "function_name": "PHYAD2",
+          "interface_group": null,
+          "mux_code": null,
+          "notes": "CONFIGURATION_STRAP_INPUT"
+        }
+      ],
+      "functional_group": "GPIO",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "51 | GPIO13/SOF/PHYAD2",
+      "display_label": "GPIO13/SOF/PHYAD2"
+    },
+    {
+      "pin_number": "24",
+      "primary_name": "SGMII_RXN",
+      "electrical_type": "Input",
+      "drive_structure": "analog",
+      "diff_pair_role": "N",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "SGMII_INTERFACE",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "24 | SGMII_RXN",
+      "display_label": "SGMII_RXN"
+    },
+    {
+      "pin_number": "52",
+      "primary_name": "VDDAH_ABPVT_PLL",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "52 | VDDAH_ABPVT_PLL",
+      "display_label": "VDDAH_ABPVT_PLL"
+    },
+    {
+      "pin_number": "25",
+      "primary_name": "VDDAL_SERDES",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "25 | VDDAL_SERDES",
+      "display_label": "VDDAL_SERDES"
+    },
+    {
+      "pin_number": "53",
+      "primary_name": "VDDCORE",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "53 | VDDCORE",
+      "display_label": "VDDCORE"
+    },
+    {
+      "pin_number": "26",
+      "primary_name": "SGMII_TXN",
+      "electrical_type": "Output",
+      "drive_structure": "analog",
+      "diff_pair_role": "N",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "SGMII_INTERFACE",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "26 | SGMII_TXN",
+      "display_label": "SGMII_TXN"
+    },
+    {
+      "pin_number": "54",
+      "primary_name": "LDO_O",
+      "electrical_type": "Output",
+      "drive_structure": "analog",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "MISCELLANEOUS",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "54 | LDO_O",
+      "display_label": "LDO_O"
+    },
+    {
+      "pin_number": "27",
+      "primary_name": "SGMII_TXP",
+      "electrical_type": "Output",
+      "drive_structure": "analog",
+      "diff_pair_role": "P",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "SGMII_INTERFACE",
+      "side_hint": "right",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "27 | SGMII_TXP",
+      "display_label": "SGMII_TXP"
+    },
+    {
+      "pin_number": "55",
+      "primary_name": "XO",
+      "electrical_type": "Output",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "55 | XO",
+      "display_label": "XO"
+    },
+    {
+      "pin_number": "28",
+      "primary_name": "VDDAH_SERDES",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "28 | VDDAH_SERDES",
+      "display_label": "VDDAH_SERDES"
+    },
+    {
+      "pin_number": "56",
+      "primary_name": "XI",
+      "electrical_type": "Input",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET",
+      "side_hint": "left",
+      "is_no_connect": false,
+      "source_confidence": 1.0,
+      "raw_source_text": "56 | XI",
+      "display_label": "XI"
+    },
+    {
+      "pin_number": "EP",
+      "primary_name": "P_VSS",
+      "electrical_type": "Power",
+      "drive_structure": "unknown",
+      "diff_pair_role": "none",
+      "diff_pair_partner": null,
+      "alternate_functions": [],
+      "functional_group": "POWER_AND_GROUND",
+      "side_hint": "bottom",
+      "is_no_connect": false,
+      "source_confidence": 0.5,
+      "raw_source_text": "(no master-table row) | P_VSS",
+      "display_label": "P_VSS"
+    }
+  ],
+  "groups": [
+    {
+      "name": "POWER_AND_GROUND",
+      "pins": [
+        {
+          "pin_number": "1",
+          "primary_name": "VDDAL_PLL",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "1 | VDDAL_PLL",
+          "display_label": "VDDAL_PLL"
+        },
+        {
+          "pin_number": "3",
+          "primary_name": "VDDAH",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "3 | VDDAH",
+          "display_label": "VDDAH"
+        },
+        {
+          "pin_number": "6",
+          "primary_name": "VDDAL_ADC_AB_GPHY",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "6 | VDDAL_ADC_AB_GPHY",
+          "display_label": "VDDAL_ADC_AB_GPHY"
+        },
+        {
+          "pin_number": "35",
+          "primary_name": "VDDCORE",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "35 | VDDCORE",
+          "display_label": "VDDCORE"
+        },
+        {
+          "pin_number": "36",
+          "primary_name": "VDDIO",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "36 | VDDIO",
+          "display_label": "VDDIO"
+        },
+        {
+          "pin_number": "9",
+          "primary_name": "VDDAH_GPHY",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "9 | VDDAH_GPHY",
+          "display_label": "VDDAH_GPHY"
+        },
+        {
+          "pin_number": "12",
+          "primary_name": "VDDAL_ADC_CD_GPHY",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "12 | VDDAL_ADC_CD_GPHY",
+          "display_label": "VDDAL_ADC_CD_GPHY"
+        },
+        {
+          "pin_number": "45",
+          "primary_name": "VDDIO",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "45 | VDDIO",
+          "display_label": "VDDIO"
+        },
+        {
+          "pin_number": "20",
+          "primary_name": "VDDIO",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "20 | VDDIO",
+          "display_label": "VDDIO"
+        },
+        {
+          "pin_number": "21",
+          "primary_name": "VDDCORE",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "21 | VDDCORE",
+          "display_label": "VDDCORE"
+        },
+        {
+          "pin_number": "52",
+          "primary_name": "VDDAH_ABPVT_PLL",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "52 | VDDAH_ABPVT_PLL",
+          "display_label": "VDDAH_ABPVT_PLL"
+        },
+        {
+          "pin_number": "25",
+          "primary_name": "VDDAL_SERDES",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "25 | VDDAL_SERDES",
+          "display_label": "VDDAL_SERDES"
+        },
+        {
+          "pin_number": "53",
+          "primary_name": "VDDCORE",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "53 | VDDCORE",
+          "display_label": "VDDCORE"
+        },
+        {
+          "pin_number": "28",
+          "primary_name": "VDDAH_SERDES",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "28 | VDDAH_SERDES",
+          "display_label": "VDDAH_SERDES"
+        },
+        {
+          "pin_number": "EP",
+          "primary_name": "P_VSS",
+          "electrical_type": "Power",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "POWER_AND_GROUND",
+          "side_hint": "bottom",
+          "is_no_connect": false,
+          "source_confidence": 0.5,
+          "raw_source_text": "(no master-table row) | P_VSS",
+          "display_label": "P_VSS"
+        }
+      ],
+      "side": "bottom",
+      "part_index": 2
+    },
+    {
+      "name": "MISCELLANEOUS",
+      "pins": [
+        {
+          "pin_number": "29",
+          "primary_name": "RES_REF",
+          "electrical_type": "Input",
+          "drive_structure": "analog",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "MISCELLANEOUS",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "29 | RES_REF",
+          "display_label": "RES_REF"
+        },
+        {
+          "pin_number": "2",
+          "primary_name": "ISET",
+          "electrical_type": "Input",
+          "drive_structure": "analog",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "MISCELLANEOUS",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "2 | ISET",
+          "display_label": "ISET"
+        },
+        {
+          "pin_number": "30",
+          "primary_name": "MDIO",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "MISCELLANEOUS",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "30 | MDIO",
+          "display_label": "MDIO"
+        },
+        {
+          "pin_number": "31",
+          "primary_name": "MDC",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "MISCELLANEOUS",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "31 | MDC",
+          "display_label": "MDC"
+        },
+        {
+          "pin_number": "32",
+          "primary_name": "INT_N",
+          "electrical_type": "Output",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "MISCELLANEOUS",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "32 | INT_N",
+          "display_label": "INT_N"
+        },
+        {
+          "pin_number": "33",
+          "primary_name": "NC",
+          "electrical_type": "Unknown",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "MISCELLANEOUS",
+          "side_hint": "left",
+          "is_no_connect": true,
+          "source_confidence": 0.3,
+          "raw_source_text": "33 | NC",
+          "display_label": "NC"
+        },
+        {
+          "pin_number": "34",
+          "primary_name": "NC",
+          "electrical_type": "Unknown",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "MISCELLANEOUS",
+          "side_hint": "left",
+          "is_no_connect": true,
+          "source_confidence": 0.3,
+          "raw_source_text": "34 | NC",
+          "display_label": "NC"
+        },
+        {
+          "pin_number": "15",
+          "primary_name": "TEST_MODE",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "MISCELLANEOUS",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "15 | TEST_MODE",
+          "display_label": "TEST_MODE"
+        },
+        {
+          "pin_number": "16",
+          "primary_name": "RESET_N",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "MISCELLANEOUS",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "16 | RESET_N",
+          "display_label": "RESET_N"
+        },
+        {
+          "pin_number": "17",
+          "primary_name": "COMA_MODE",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "MISCELLANEOUS",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "17 | COMA_MODE",
+          "display_label": "COMA_MODE"
+        },
+        {
+          "pin_number": "22",
+          "primary_name": "SEL_2V5_VDDAH",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "MISCELLANEOUS",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "22 | SEL_2V5_VDDAH",
+          "display_label": "SEL_2V5_VDDAH"
+        },
+        {
+          "pin_number": "54",
+          "primary_name": "LDO_O",
+          "electrical_type": "Output",
+          "drive_structure": "analog",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "MISCELLANEOUS",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "54 | LDO_O",
+          "display_label": "LDO_O"
+        }
+      ],
+      "side": "left",
+      "part_index": 3
+    },
+    {
+      "name": "ETHERNET_MEDIA_INTERFACE",
+      "pins": [
+        {
+          "pin_number": "4",
+          "primary_name": "TX_RXP_A",
+          "electrical_type": "IO",
+          "drive_structure": "analog",
+          "diff_pair_role": "P",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "ETHERNET_MEDIA_INTERFACE",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "4 | TX_RXP_A",
+          "display_label": "TX_RXP_A"
+        },
+        {
+          "pin_number": "5",
+          "primary_name": "TX_RXN_A",
+          "electrical_type": "IO",
+          "drive_structure": "analog",
+          "diff_pair_role": "N",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "ETHERNET_MEDIA_INTERFACE",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "5 | TX_RXN_A",
+          "display_label": "TX_RXN_A"
+        },
+        {
+          "pin_number": "7",
+          "primary_name": "TX_RXP_B",
+          "electrical_type": "IO",
+          "drive_structure": "analog",
+          "diff_pair_role": "P",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "ETHERNET_MEDIA_INTERFACE",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "7 | TX_RXP_B",
+          "display_label": "TX_RXP_B"
+        },
+        {
+          "pin_number": "8",
+          "primary_name": "TX_RXN_B",
+          "electrical_type": "IO",
+          "drive_structure": "analog",
+          "diff_pair_role": "N",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "ETHERNET_MEDIA_INTERFACE",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "8 | TX_RXN_B",
+          "display_label": "TX_RXN_B"
+        },
+        {
+          "pin_number": "10",
+          "primary_name": "TX_RXP_C",
+          "electrical_type": "IO",
+          "drive_structure": "analog",
+          "diff_pair_role": "P",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "ETHERNET_MEDIA_INTERFACE",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "10 | TX_RXP_C",
+          "display_label": "TX_RXP_C"
+        },
+        {
+          "pin_number": "11",
+          "primary_name": "TX_RXN_C",
+          "electrical_type": "IO",
+          "drive_structure": "analog",
+          "diff_pair_role": "N",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "ETHERNET_MEDIA_INTERFACE",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "11 | TX_RXN_C",
+          "display_label": "TX_RXN_C"
+        },
+        {
+          "pin_number": "13",
+          "primary_name": "TX_RXP_D",
+          "electrical_type": "IO",
+          "drive_structure": "analog",
+          "diff_pair_role": "P",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "ETHERNET_MEDIA_INTERFACE",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "13 | TX_RXP_D",
+          "display_label": "TX_RXP_D"
+        },
+        {
+          "pin_number": "14",
+          "primary_name": "TX_RXN_D",
+          "electrical_type": "IO",
+          "drive_structure": "analog",
+          "diff_pair_role": "N",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "ETHERNET_MEDIA_INTERFACE",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "14 | TX_RXN_D",
+          "display_label": "TX_RXN_D"
+        }
+      ],
+      "side": "right",
+      "part_index": 3
+    },
+    {
+      "name": "GPIO",
+      "pins": [
+        {
+          "pin_number": "37",
+          "primary_name": "GPIO0",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "1588_EVENT_A",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "IEEE_1588"
+            },
+            {
+              "function_name": "LED_MODE",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "CONFIGURATION_STRAP_INPUT"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "37 | GPIO0/1588_EVENT_A/LED_MODE",
+          "display_label": "GPIO0/1588_EVENT_A/LED_MODE"
+        },
+        {
+          "pin_number": "38",
+          "primary_name": "GPIO1",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "1588_EVENT_B",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "IEEE_1588"
+            },
+            {
+              "function_name": "MODE_SEL0",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "CONFIGURATION_STRAP_INPUT"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "38 | GPIO1/1588_EVENT_B/MODE_SEL0",
+          "display_label": "GPIO1/1588_EVENT_B/MODE_SEL0"
+        },
+        {
+          "pin_number": "39",
+          "primary_name": "GPIO2",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "1588_REF_CLK",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "IEEE_1588"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "39 | GPIO2/1588_REF_CLK",
+          "display_label": "GPIO2/1588_REF_CLK"
+        },
+        {
+          "pin_number": "40",
+          "primary_name": "GPIO3",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "1588_LD_ADJ",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "IEEE_1588"
+            },
+            {
+              "function_name": "MODE_SEL1",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "CONFIGURATION_STRAP_INPUT"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "40 | GPIO3/1588_LD_ADJ/MODE_SEL1",
+          "display_label": "GPIO3/1588_LD_ADJ/MODE_SEL1"
+        },
+        {
+          "pin_number": "41",
+          "primary_name": "GPIO4",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "MODE_SEL2",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "CONFIGURATION_STRAP_INPUT"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "41 | GPIO4/MODE_SEL2",
+          "display_label": "GPIO4/MODE_SEL2"
+        },
+        {
+          "pin_number": "42",
+          "primary_name": "GPIO5",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "MODE_SEL3",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "CONFIGURATION_STRAP_INPUT"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "42 | GPIO5/MODE_SEL3",
+          "display_label": "GPIO5/MODE_SEL3"
+        },
+        {
+          "pin_number": "43",
+          "primary_name": "GPIO6",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "MODE_SEL4",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "CONFIGURATION_STRAP_INPUT"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "43 | GPIO6/MODE_SEL4",
+          "display_label": "GPIO6/MODE_SEL4"
+        },
+        {
+          "pin_number": "44",
+          "primary_name": "GPIO7",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "RCVRD_CLK_IN1",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET"
+            },
+            {
+              "function_name": "TDI",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "JTAG"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "44 | GPIO7/RCVRD_CLK_IN1/TDI",
+          "display_label": "GPIO7/RCVRD_CLK_IN1/TDI"
+        },
+        {
+          "pin_number": "18",
+          "primary_name": "GPIO14",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "LED1",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "MISCELLANEOUS"
+            },
+            {
+              "function_name": "PHYAD3",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "CONFIGURATION_STRAP_INPUT"
+            },
+            {
+              "function_name": "LED1_POL",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "CONFIGURATION_STRAP_INPUT"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "18 | GPIO14/LED1/PHYAD3/LED1_POL",
+          "display_label": "GPIO14/LED1/PHYAD3/LED1_POL"
+        },
+        {
+          "pin_number": "46",
+          "primary_name": "GPIO8",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "RCVRD_CLK_IN2",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET"
+            },
+            {
+              "function_name": "TDO",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "JTAG"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "46 | GPIO8/RCVRD_CLK_IN2/TDO",
+          "display_label": "GPIO8/RCVRD_CLK_IN2/TDO"
+        },
+        {
+          "pin_number": "19",
+          "primary_name": "GPIO15",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "LED2",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "MISCELLANEOUS"
+            },
+            {
+              "function_name": "PHYAD4",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "CONFIGURATION_STRAP_INPUT"
+            },
+            {
+              "function_name": "LED2_POL",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "CONFIGURATION_STRAP_INPUT"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "19 | GPIO15/LED2/PHYAD4/LED2_POL",
+          "display_label": "GPIO15/LED2/PHYAD4/LED2_POL"
+        },
+        {
+          "pin_number": "47",
+          "primary_name": "GPIO9",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "RCVRD_CLK_OUT1",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET"
+            },
+            {
+              "function_name": "TMS",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "JTAG"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "47 | GPIO9/RCVRD_CLK_OUT1/TMS",
+          "display_label": "GPIO9/RCVRD_CLK_OUT1/TMS"
+        },
+        {
+          "pin_number": "48",
+          "primary_name": "GPIO10",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "RCVRD_CLK_OUT2",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET"
+            },
+            {
+              "function_name": "TCK",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "JTAG"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "48 | GPIO10/RCVRD_CLK_OUT2/TCK",
+          "display_label": "GPIO10/RCVRD_CLK_OUT2/TCK"
+        },
+        {
+          "pin_number": "49",
+          "primary_name": "GPIO11",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "CK25OUT",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET"
+            },
+            {
+              "function_name": "PHYAD0",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "CONFIGURATION_STRAP_INPUT"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "49 | GPIO11/CK25OUT/PHYAD0",
+          "display_label": "GPIO11/CK25OUT/PHYAD0"
+        },
+        {
+          "pin_number": "50",
+          "primary_name": "GPIO12",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "PHYAD1",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "CONFIGURATION_STRAP_INPUT"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "50 | GPIO12/PHYAD1",
+          "display_label": "GPIO12/PHYAD1"
+        },
+        {
+          "pin_number": "51",
+          "primary_name": "GPIO13",
+          "electrical_type": "Input",
+          "drive_structure": "schmitt-trigger",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [
+            {
+              "function_name": "SOF",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "MISCELLANEOUS"
+            },
+            {
+              "function_name": "PHYAD2",
+              "interface_group": null,
+              "mux_code": null,
+              "notes": "CONFIGURATION_STRAP_INPUT"
+            }
+          ],
+          "functional_group": "GPIO",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "51 | GPIO13/SOF/PHYAD2",
+          "display_label": "GPIO13/SOF/PHYAD2"
+        }
+      ],
+      "side": "left",
+      "part_index": 1
+    },
+    {
+      "name": "SGMII_INTERFACE",
+      "pins": [
+        {
+          "pin_number": "23",
+          "primary_name": "SGMII_RXP",
+          "electrical_type": "Input",
+          "drive_structure": "analog",
+          "diff_pair_role": "P",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "SGMII_INTERFACE",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "23 | SGMII_RXP",
+          "display_label": "SGMII_RXP"
+        },
+        {
+          "pin_number": "24",
+          "primary_name": "SGMII_RXN",
+          "electrical_type": "Input",
+          "drive_structure": "analog",
+          "diff_pair_role": "N",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "SGMII_INTERFACE",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "24 | SGMII_RXN",
+          "display_label": "SGMII_RXN"
+        },
+        {
+          "pin_number": "26",
+          "primary_name": "SGMII_TXN",
+          "electrical_type": "Output",
+          "drive_structure": "analog",
+          "diff_pair_role": "N",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "SGMII_INTERFACE",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "26 | SGMII_TXN",
+          "display_label": "SGMII_TXN"
+        },
+        {
+          "pin_number": "27",
+          "primary_name": "SGMII_TXP",
+          "electrical_type": "Output",
+          "drive_structure": "analog",
+          "diff_pair_role": "P",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "SGMII_INTERFACE",
+          "side_hint": "right",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "27 | SGMII_TXP",
+          "display_label": "SGMII_TXP"
+        }
+      ],
+      "side": "right",
+      "part_index": 4
+    },
+    {
+      "name": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET",
+      "pins": [
+        {
+          "pin_number": "55",
+          "primary_name": "XO",
+          "electrical_type": "Output",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "55 | XO",
+          "display_label": "XO"
+        },
+        {
+          "pin_number": "56",
+          "primary_name": "XI",
+          "electrical_type": "Input",
+          "drive_structure": "unknown",
+          "diff_pair_role": "none",
+          "diff_pair_partner": null,
+          "alternate_functions": [],
+          "functional_group": "SYSTEM_CLOCK_AND_SYNCHRONOUS_ETHERNET",
+          "side_hint": "left",
+          "is_no_connect": false,
+          "source_confidence": 1.0,
+          "raw_source_text": "56 | XI",
+          "display_label": "XI"
+        }
+      ],
+      "side": "left",
+      "part_index": 4
+    }
+  ],
+  "package_type": null,
+  "is_multi_part": true,
+  "extraction_warnings": [
+    "Used structured (master table + grouped tables) extraction strategy",
+    "'P_VSS' found in grouped description table but has no numbered row in the master pin table (likely an exposed pad/footnote) \u2014 assigned placeholder pin number 'EP', VERIFY against the package drawing before use"
+  ]
+}
