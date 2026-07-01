@@ -17,10 +17,11 @@ block_cipher = None
 REPO_ROOT = Path(".").resolve()
 EXTRACTION_DIR = REPO_ROOT / "python_extraction"
 GUI_DIR = REPO_ROOT / "gui"
+ALTIUM_BRIDGE_DIR = REPO_ROOT / "altium_bridge"
 
 a = Analysis(
     [str(GUI_DIR / "app.py")],
-    pathex=[str(EXTRACTION_DIR), str(GUI_DIR)],
+    pathex=[str(EXTRACTION_DIR), str(GUI_DIR), str(ALTIUM_BRIDGE_DIR)],
     binaries=[],
     datas=[],
     hiddenimports=[

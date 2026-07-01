@@ -25,12 +25,16 @@ from tkinter import ttk, filedialog, messagebox, scrolledtext
 # importable whether running from source or from a PyInstaller bundle.
 if getattr(sys, "frozen", False):
     BASE_DIR = Path(sys._MEIPASS)  # type: ignore[attr-defined]
+    ALTIUM_BRIDGE_DIR = BASE_DIR
 else:
     BASE_DIR = Path(__file__).resolve().parent.parent / "python_extraction"
+    ALTIUM_BRIDGE_DIR = Path(__file__).resolve().parent.parent / "altium_bridge"
 sys.path.insert(0, str(BASE_DIR))
+sys.path.insert(0, str(ALTIUM_BRIDGE_DIR))
 
 from pipeline import run_pipeline, save_component_json, json_default  # noqa: E402
 from review_report import build_report  # noqa: E402
+from delphiscript_generator import generate_delphiscript  # noqa: E402
 import dataclasses  # noqa: E402
 
 
@@ -82,6 +86,10 @@ class App(tk.Tk):
         self.btn_run.pack(side="left", padx=8)
         self.btn_export = ttk.Button(frm_actions, text="3. Export JSON...", command=self._on_export, state="disabled")
         self.btn_export.pack(side="left", padx=8)
+        self.btn_delphiscript = ttk.Button(
+            frm_actions, text="4. Generate DelphiScript (.pas)...", command=self._on_generate_delphiscript, state="disabled"
+        )
+        self.btn_delphiscript.pack(side="left", padx=8)
         self.progress = ttk.Progressbar(frm_actions, mode="indeterminate", length=200)
         self.progress.pack(side="left", padx=16)
 
@@ -134,6 +142,7 @@ class App(tk.Tk):
 
         self.btn_run.configure(state="disabled")
         self.btn_export.configure(state="disabled")
+        self.btn_delphiscript.configure(state="disabled")
         self.progress.start(12)
         self.status_text.set("Running extraction...")
         self._set_output_text("Running extraction — this can take a few seconds on large datasheets...\n")
@@ -160,6 +169,7 @@ class App(tk.Tk):
         self.progress.stop()
         self.btn_run.configure(state="normal")
         self.btn_export.configure(state="normal")
+        self.btn_delphiscript.configure(state="normal")
         self.status_text.set(f"Done — {len(component.pins)} pins extracted.")
         self._set_output_text(report)
 
@@ -184,6 +194,38 @@ class App(tk.Tk):
             save_component_json(self._component, path)
             self.status_text.set(f"Exported to {path}")
             messagebox.showinfo(APP_TITLE, f"Exported:\n{path}")
+
+    def _on_generate_delphiscript(self):
+        if not self._component:
+            return
+        default_name = f"{self._component.part_number}_CreateComponent.pas"
+        path = filedialog.asksaveasfilename(
+            title="Save DelphiScript",
+            defaultextension=".pas",
+            initialfile=default_name,
+            filetypes=[("DelphiScript files", "*.pas"), ("All files", "*.*")],
+        )
+        if not path:
+            return
+        try:
+            import json
+            data = json.loads(json.dumps(dataclasses.asdict(self._component), default=json_default))
+            script = generate_delphiscript(data)
+            Path(path).write_text(script, encoding="utf-8")
+            self.status_text.set(f"DelphiScript written to {path}")
+            messagebox.showinfo(
+                APP_TITLE,
+                f"DelphiScript written:\n{path}\n\n"
+                "Next steps:\n"
+                "1. In Altium: File > New > Library > Schematic Library\n"
+                "   (or open an existing .SchLib)\n"
+                "2. DXP > Run Script... > browse to this file > CreateComponent > Run\n"
+                "3. Save the library (Ctrl+S)\n\n"
+                "Check the top comment of the .pas file for verification notes\n"
+                "before trusting the result.",
+            )
+        except Exception as exc:
+            messagebox.showerror(APP_TITLE, f"DelphiScript generation failed:\n{exc}")
 
 
 def main():
