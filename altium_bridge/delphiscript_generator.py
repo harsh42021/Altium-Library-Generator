@@ -107,11 +107,24 @@ def _estimate_label_width(label: str) -> int:
 def _layout_pins(component: dict) -> dict:
     """Computes (x, y, side) for every pin in every sub-part, grid-
     snapped, and the bounding rectangle for each sub-part's body.
-    Left/right (horizontal) placement only. Body width is sized from
-    the longest pin label on either side, not a fixed minimum — a
-    fixed-width body is what caused left- and right-side pin name
-    labels to overlap in the middle when labels were longer than the
-    (previously hardcoded) body width could accommodate.
+    Left/right (horizontal) placement only.
+
+    Rectangle sizing: the body rectangle is derived DIRECTLY from
+    actual placed pin coordinates, not a separately-computed formula —
+    a previous version computed body_height via a formula and then
+    centered pins within it, which left a gap between the rectangle
+    edge and the top/bottom pins (the rectangle didn't actually line
+    up with where the pins were). Now: both columns are top-aligned
+    (pin 0 of each column sits at the same Y), so the rectangle's top
+    edge = the top pin's Y (same for both columns), and its bottom
+    edge = whichever column's last pin extends furthest down. Width
+    still comes from the longest pin label (needed to decide how far
+    right to place the right column in the first place — there's no
+    equivalent 'actual coordinate' to derive that from).
+    If there's no right column, the rectangle's bottom edge falls back
+    to the left column's own last pin, and width falls back to the
+    label-width heuristic (there's nothing on the right to correlate
+    against).
     Returns {part_index: {"pins": [...], "body": (x1,y1,x2,y2)}}."""
     parts: dict[int, dict] = {}
 
@@ -127,9 +140,6 @@ def _layout_pins(component: dict) -> dict:
         left_pins = sides["left"]
         right_pins = sides["right"]
 
-        body_height = max(MIN_BODY_DIM, (max(len(left_pins), len(right_pins)) + 1) * PIN_SPACING)
-        body_height = ((body_height + GRID - 1) // GRID) * GRID
-
         all_labels = [
             (pin.get("display_label") or pin["primary_name"])
             for pin, _ in left_pins + right_pins
@@ -141,20 +151,49 @@ def _layout_pins(component: dict) -> dict:
         placed = []
 
         def place_side(pins, x_body_edge, direction_sign, side_name):
-            n = len(pins)
-            start_y = body_height - (body_height - (n - 1) * PIN_SPACING) // 2 if n > 1 else body_height // 2
+            """Top-aligned: pin 0 (top of this column) sits at Y=0;
+            each subsequent pin steps down by PIN_SPACING. Returns the
+            Y of the last (bottom-most) pin placed, or None if empty."""
+            last_y = None
             for i, (pin, group_name) in enumerate(pins):
-                y = start_y - i * PIN_SPACING
-                y = (y // GRID) * GRID
+                y = -i * PIN_SPACING
                 x_tip = x_body_edge + direction_sign * PIN_LENGTH
                 placed.append((pin, group_name, x_tip, y, side_name))
+                last_y = y
+            return last_y
 
-        place_side(left_pins, 0, -1, "left")
-        place_side(right_pins, body_width, 1, "right")
+        left_bottom_y = place_side(left_pins, 0, -1, "left")
+        right_bottom_y = place_side(right_pins, body_width, 1, "right")
+
+        # Rectangle top edge: Y=0 (both columns are top-aligned there,
+        # i.e. exactly the left column's top-pin Y), plus 100mil
+        # clearance above the top pin row per explicit correction.
+        # Bottom edge: the bottom-most pin's exact Y across whichever
+        # column extends further down, minus another 100mil clearance.
+        candidates = [y for y in (left_bottom_y, right_bottom_y) if y is not None]
+        rect_bottom_y = (min(candidates) if candidates else -MIN_BODY_DIM) - 100
+        rect_top_y = 0 + 100
+
+        # X-axis correction: rectangle edges were observed misaligned
+        # with actual pin attachment points in real Altium testing.
+        # Root cause: Pin.Location (set below to x_body_edge +
+        # direction_sign*PIN_LENGTH for each side) appears to behave as
+        # the pin's near/body-attachment point rather than its far/
+        # electrical end, contrary to this generator's original
+        # assumption. The fix is NOT a uniform shift — each side's
+        # rectangle edge must independently extend outward by
+        # PIN_LENGTH in that side's own direction (left edge moves
+        # further left/negative, right edge further right/positive),
+        # matching the same direction_sign used for that side's pins.
+        # A uniform "-200 to both edges" fix was tried first and
+        # confirmed correct for the left edge but wrong for the right
+        # edge — this per-side version corrects that.
+        rect_x1 = 0 + (-1) * PIN_LENGTH       # left side: direction_sign = -1
+        rect_x2 = body_width + (+1) * PIN_LENGTH  # right side: direction_sign = +1
 
         parts[part_idx] = {
             "pins": placed,
-            "body": (0, 0, body_width, body_height),
+            "body": (rect_x1, rect_bottom_y, rect_x2, rect_top_y),
         }
 
     return parts
@@ -227,8 +266,10 @@ def generate_delphiscript(component: dict) -> str:
         lines.append(f"    R.Location := Point(MilsToCoord({x1}), MilsToCoord({y1}));")
         lines.append(f"    R.Corner   := Point(MilsToCoord({x2}), MilsToCoord({y2}));")
         lines.append("    R.LineWidth := eSmall;")
-        lines.append("    R.AreaColor := $00E0E0E0;")
+        lines.append("    R.AreaColor := $00B0FFFF;  { Fill: Yellow #FFFFB0 (TColor is BGR-ordered) }")
+        lines.append("    R.Color := $00000098;      { Border: Brown #980000 (TColor is BGR-ordered) }")
         lines.append("    R.IsSolid := True;")
+        lines.append("    R.Transparent := True;    { confirmed property, applies to Rectangle per Altium docs }")
         lines.append(f"    R.OwnerPartId := {part_idx};")
         lines.append("    SchComponent.AddSchObject(R);")
         lines.append("")
