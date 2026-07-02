@@ -32,9 +32,10 @@ else:
 sys.path.insert(0, str(BASE_DIR))
 sys.path.insert(0, str(ALTIUM_BRIDGE_DIR))
 
-from pipeline import run_pipeline, save_component_json, json_default  # noqa: E402
+from pipeline import run_pipeline, save_component_json, json_default, get_footprint_dimensions  # noqa: E402
 from review_report import build_report  # noqa: E402
 from delphiscript_generator import generate_delphiscript  # noqa: E402
+from pcb_delphiscript_generator import generate_pcb_delphiscript  # noqa: E402
 import dataclasses  # noqa: E402
 
 
@@ -98,6 +99,10 @@ class App(tk.Tk):
             frm_actions, text="4. Generate DelphiScript (.pas)...", command=self._on_generate_delphiscript, state="disabled"
         )
         self.btn_delphiscript.pack(side="left", padx=8)
+        self.btn_pcb_footprint = ttk.Button(
+            frm_actions, text="5. Generate PCB Footprint (.pas)...", command=self._on_generate_pcb_footprint, state="disabled"
+        )
+        self.btn_pcb_footprint.pack(side="left", padx=8)
         self.progress = ttk.Progressbar(frm_actions, mode="indeterminate", length=200)
         self.progress.pack(side="left", padx=16)
 
@@ -160,6 +165,7 @@ class App(tk.Tk):
         self.btn_run.configure(state="disabled")
         self.btn_export.configure(state="disabled")
         self.btn_delphiscript.configure(state="disabled")
+        self.btn_pcb_footprint.configure(state="disabled")
         self.progress.start(12)
         self.status_text.set("Running extraction...")
         self._set_output_text("Running extraction — this can take a few seconds on large datasheets...\n")
@@ -187,6 +193,7 @@ class App(tk.Tk):
         self.btn_run.configure(state="normal")
         self.btn_export.configure(state="normal")
         self.btn_delphiscript.configure(state="normal")
+        self.btn_pcb_footprint.configure(state="normal")
         self.status_text.set(f"Done — {len(component.pins)} pins extracted.")
         self._set_output_text(report)
 
@@ -243,6 +250,59 @@ class App(tk.Tk):
             )
         except Exception as exc:
             messagebox.showerror(APP_TITLE, f"DelphiScript generation failed:\n{exc}")
+
+    def _on_generate_pcb_footprint(self):
+        if not self._component:
+            return
+        md = self.markdown_path.get().strip()
+        if not md:
+            messagebox.showwarning(
+                APP_TITLE,
+                "Footprint generation needs the datasheet Markdown file (for package "
+                "dimensions) — none is set in the Datasheet field."
+            )
+            return
+        try:
+            dims, dim_warnings = get_footprint_dimensions(md)
+        except Exception as exc:
+            messagebox.showerror(APP_TITLE, f"Reading footprint dimensions failed:\n{exc}")
+            return
+        if not dims:
+            messagebox.showerror(
+                APP_TITLE,
+                "Couldn't extract footprint dimensions from the datasheet:\n\n" + "\n".join(dim_warnings)
+            )
+            return
+
+        default_name = f"{self._component.part_number}_CreateFootprint.pas"
+        path = filedialog.asksaveasfilename(
+            title="Save PCB Footprint DelphiScript",
+            defaultextension=".pas",
+            initialfile=default_name,
+            filetypes=[("DelphiScript files", "*.pas"), ("All files", "*.*")],
+        )
+        if not path:
+            return
+        try:
+            import json
+            data = json.loads(json.dumps(dataclasses.asdict(self._component), default=json_default))
+            script = generate_pcb_delphiscript(data, dims)
+            Path(path).write_text(script, encoding="utf-8")
+            warning_text = ("\n\nWarnings:\n" + "\n".join(dim_warnings)) if dim_warnings else ""
+            self.status_text.set(f"PCB footprint script written to {path}")
+            messagebox.showinfo(
+                APP_TITLE,
+                f"PCB footprint DelphiScript written:\n{path}\n\n"
+                "Next steps:\n"
+                "1. In Altium: File > New > Library > PCB Library\n"
+                "   (or open an existing .PcbLib)\n"
+                "2. DXP > Run Script... > browse to this file > CreateFootprint > Run\n"
+                "3. Save the library (Ctrl+S)\n\n"
+                "Check the top comment of the .pas file for verification notes."
+                + warning_text,
+            )
+        except Exception as exc:
+            messagebox.showerror(APP_TITLE, f"PCB footprint generation failed:\n{exc}")
 
 
 def main():

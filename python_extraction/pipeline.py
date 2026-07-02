@@ -13,6 +13,7 @@ from parsers.markdown_parser import extract_from_markdown
 from parsers.structured_datasheet_parser import extract_structured
 from parsers.pdf_parser import extract_pin_tables_from_pdf
 from parsers.reference_schematic_parser import apply_reference_schematic_grouping, regroup_after_reference_override
+from parsers.mechanical_dimension_parser import extract_footprint_dimensions
 from classifiers.functional_classifier import classify_component
 from models.pin import ComponentRecord
 
@@ -77,6 +78,17 @@ def run_pipeline(
 
     component.extraction_warnings = warnings
     return component
+
+
+def get_footprint_dimensions(markdown_path: str) -> tuple[dict | None, list[str]]:
+    """Extracts package/land-pattern dimensions from a datasheet
+    markdown file, for footprint (PcbLib) generation. Separate from
+    run_pipeline since it doesn't depend on pin extraction — a footprint
+    can be generated from a datasheet even if pin extraction was done
+    from a different source (e.g. GUI lets these be requested
+    independently once a component is loaded)."""
+    md_text = Path(markdown_path).read_text(encoding="utf-8")
+    return extract_footprint_dimensions(md_text)
 
 
 def save_component_json(component: ComponentRecord, out_path: str) -> None:
