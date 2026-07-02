@@ -1,20 +1,25 @@
-; Inno Setup script for Altium Library Generator.
+; Inno Setup script for The Construct.
 ;
 ; Build (on Windows, with Inno Setup installed: https://jrsoftware.org/isinfo.php):
-;     1. Run PyInstaller first (see altium_libgen.spec) so dist\AltiumLibraryGenerator\ exists.
+;     1. Run PyInstaller first (see altium_libgen.spec) so dist\TheConstruct\ exists.
 ;     2. Open this file in Inno Setup Compiler (or run: iscc installer.iss)
 ;
-; Output: installer/output/AltiumLibraryGeneratorSetup.exe
+; Output: installer/output/TheConstructSetup.exe
 
-#define MyAppName "Altium Library Generator"
-#define MyAppVersion "0.2.0"
+#define MyAppName "The Construct"
+#define MyAppVersion "0.3.0"
 ; Bump MyAppVersion on every build you intend to distribute — this is
 ; what shows up in Add/Remove Programs and what the upgrade-detection
 ; logic below uses to tell the user what version is replacing what.
 #define MyAppPublisher "Your Organization"
-#define MyAppExeName "AltiumLibraryGenerator.exe"
+#define MyAppExeName "TheConstruct.exe"
 
 [Setup]
+; AppId is UNCHANGED from the "Altium Library Generator" builds —
+; this is a rename/rebrand of the same tool, not a new product, so
+; keeping the same AppId lets the upgrade-detection logic below
+; correctly recognize and replace a previous install rather than
+; leaving two separate apps side by side.
 AppId={{B7C9D1E2-4F3A-4E5B-9C1D-1A2B3C4D5E6F}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
@@ -25,12 +30,11 @@ DisableProgramGroupPage=yes
 ; Requires admin to install to Program Files; installer will prompt via UAC.
 PrivilegesRequired=admin
 OutputDir=..\output
-OutputBaseFilename=AltiumLibraryGeneratorSetup
+OutputBaseFilename=TheConstructSetup
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
-; Uncomment and provide an .ico if you have one:
-; SetupIconFile=app_icon.ico
+SetupIconFile=..\pyinstaller\app_icon.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 
 [Languages]
@@ -43,7 +47,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 ; Pulls in everything PyInstaller produced (the exe plus its bundled
 ; Python runtime and dependencies) — this is what means end users
 ; never need Python or pip installed at all.
-Source: "..\..\dist\AltiumLibraryGenerator\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\dist\TheConstruct\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

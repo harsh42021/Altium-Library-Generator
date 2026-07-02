@@ -1,5 +1,5 @@
 """
-Core data models for the Altium Library Generator.
+Core data models for the The Construct.
 
 These are the canonical structures produced by extraction/classification.
 They get serialized to JSON as the handoff format to the C# GUI, which

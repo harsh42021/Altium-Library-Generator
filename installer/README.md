@@ -23,7 +23,7 @@ Windows-only. Two ways to actually get the installer:
    automatically on push, or click **Run workflow** to trigger it
    manually.
 4. When it finishes (a few minutes), open the run and download the
-   **AltiumLibraryGeneratorSetup** artifact from the bottom of the
+   **TheConstructSetup** artifact from the bottom of the
    page — that's your installer.
 
 This runs on Microsoft's own Windows servers, so the result is a
@@ -39,11 +39,11 @@ you to trust blind.
    ```
    installer\build_windows.bat
    ```
-4. Installer appears at `installer\output\AltiumLibraryGeneratorSetup.exe`.
+4. Installer appears at `installer\output\TheConstructSetup.exe`.
 
 ## What the installer does
 
-- Installs the app to `Program Files\Altium Library Generator`
+- Installs the app to `Program Files\The Construct`
 - Creates a Start Menu entry and (optional, checked by default) a
   desktop shortcut
 - Bundles the Python runtime and all dependencies (`pdfplumber`, etc.)

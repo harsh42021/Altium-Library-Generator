@@ -1,5 +1,5 @@
 """
-Altium Library Generator — desktop GUI.
+The Construct — desktop GUI.
 
 Wraps the extraction pipeline (pipeline.py) and review report
 (review_report.py) in a single-window Tkinter app. Runs extraction on
@@ -39,7 +39,8 @@ from pcb_delphiscript_generator import generate_pcb_delphiscript  # noqa: E402
 import dataclasses  # noqa: E402
 
 
-APP_TITLE = "Altium Library Generator"
+APP_TITLE = "The Construct"
+APP_TAGLINE = "Components. Lots of components."
 
 
 class App(tk.Tk):
@@ -48,6 +49,7 @@ class App(tk.Tk):
         self.title(APP_TITLE)
         self.geometry("900x700")
         self.minsize(760, 560)
+        self._set_window_icon()
 
         self.markdown_path = tk.StringVar()
         self.pdf_path = tk.StringVar()
@@ -58,8 +60,31 @@ class App(tk.Tk):
 
         self._build_widgets()
 
+    def _set_window_icon(self):
+        # Same icon file PyInstaller bundles into the .exe itself
+        # (installer/pyinstaller/app_icon.ico) — reused here so the
+        # running app window/taskbar icon matches, not just the .exe.
+        # When frozen, BASE_DIR IS the bundle root (sys._MEIPASS) and
+        # the icon was bundled at "installer/pyinstaller/..." under it
+        # (see the spec's extra_datas). When running from source,
+        # BASE_DIR is .../python_extraction, so the icon is one level
+        # up from its parent.
+        if getattr(sys, "frozen", False):
+            icon_path = BASE_DIR / "installer" / "pyinstaller" / "app_icon.ico"
+        else:
+            icon_path = BASE_DIR.parent / "installer" / "pyinstaller" / "app_icon.ico"
+        try:
+            if icon_path.exists():
+                self.iconbitmap(str(icon_path))
+        except Exception:
+            pass  # non-Windows platforms / missing icon — fail silently, not critical
+
     def _build_widgets(self):
         pad = {"padx": 8, "pady": 6}
+
+        frm_title = ttk.Frame(self)
+        frm_title.pack(fill="x", padx=8, pady=(8, 0))
+        ttk.Label(frm_title, text=APP_TAGLINE, foreground="#777", font=("Segoe UI", 9, "italic")).pack(side="left")
 
         frm_inputs = ttk.LabelFrame(self, text="1. Inputs")
         frm_inputs.pack(fill="x", **pad)

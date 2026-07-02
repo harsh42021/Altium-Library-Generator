@@ -1,10 +1,10 @@
 @echo off
-REM Builds the Windows installer for Altium Library Generator.
+REM Builds the Windows installer for The Construct.
 REM Run this from the repo root on a Windows machine with:
 REM   - Python 3.10+ installed and on PATH
 REM   - Inno Setup installed (https://jrsoftware.org/isinfo.php)
 REM
-REM Output: installer\output\AltiumLibraryGeneratorSetup.exe
+REM Output: installer\output\TheConstructSetup.exe
 
 setlocal enabledelayedexpansion
 
@@ -43,5 +43,5 @@ if errorlevel 1 (
 
 echo.
 echo === DONE ===
-echo Installer created at: installer\output\AltiumLibraryGeneratorSetup.exe
+echo Installer created at: installer\output\TheConstructSetup.exe
 endlocal
