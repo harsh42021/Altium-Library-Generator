@@ -89,6 +89,34 @@ class App(tk.Tk):
             foreground="#555",
         ).grid(row=4, column=0, columnspan=3, sticky="w", padx=8)
 
+        mech_layer_options = [str(n) for n in range(1, 26)]
+        self.courtyard_layer = tk.StringVar(value="1")
+        self.body_outline_layer = tk.StringVar(value="2")
+
+        ttk.Label(frm_inputs, text="PCB Footprint — Courtyard mechanical layer:").grid(row=5, column=0, sticky="w", **pad)
+        ttk.Combobox(
+            frm_inputs, textvariable=self.courtyard_layer, values=mech_layer_options, width=6, state="readonly"
+        ).grid(row=5, column=1, sticky="w", **pad)
+
+        ttk.Label(frm_inputs, text="PCB Footprint — Component Body Outline mechanical layer:").grid(row=6, column=0, sticky="w", **pad)
+        ttk.Combobox(
+            frm_inputs, textvariable=self.body_outline_layer, values=mech_layer_options, width=6, state="readonly"
+        ).grid(row=6, column=1, sticky="w", **pad)
+
+        self.body_3d_layer = tk.StringVar(value="3")
+        ttk.Label(frm_inputs, text="PCB Footprint — 3D Body mechanical layer:").grid(row=7, column=0, sticky="w", **pad)
+        ttk.Combobox(
+            frm_inputs, textvariable=self.body_3d_layer, values=mech_layer_options, width=6, state="readonly"
+        ).grid(row=7, column=1, sticky="w", **pad)
+
+        ttk.Label(
+            frm_inputs,
+            text="Note: 3D body creation via script is far less documented than everything else in this\n"
+                 "tool — treat it as experimental. If it fails, Altium's native 'Place > 3D Body > Extruded'\n"
+                 "command (manual, ~1 minute) is a reliable fallback for this one step.",
+            foreground="#555",
+        ).grid(row=8, column=0, columnspan=3, sticky="w", padx=8)
+
         frm_actions = ttk.Frame(self)
         frm_actions.pack(fill="x", **pad)
         self.btn_run = ttk.Button(frm_actions, text="2. Run Extraction", command=self._on_run)
@@ -286,7 +314,12 @@ class App(tk.Tk):
         try:
             import json
             data = json.loads(json.dumps(dataclasses.asdict(self._component), default=json_default))
-            script = generate_pcb_delphiscript(data, dims)
+            script = generate_pcb_delphiscript(
+                data, dims,
+                courtyard_layer=int(self.courtyard_layer.get()),
+                body_outline_layer=int(self.body_outline_layer.get()),
+                body_3d_layer=int(self.body_3d_layer.get()),
+            )
             Path(path).write_text(script, encoding="utf-8")
             warning_text = ("\n\nWarnings:\n" + "\n".join(dim_warnings)) if dim_warnings else ""
             self.status_text.set(f"PCB footprint script written to {path}")

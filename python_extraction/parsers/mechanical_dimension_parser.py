@@ -103,13 +103,28 @@ def find_land_pattern_dimensions(markdown_text: str) -> dict[str, dict] | None:
 
 def find_package_dimensions(markdown_text: str) -> dict[str, dict] | None:
     """Finds and parses the raw package/mechanical dimension table
-    (e.g. 'FIGURE X-Y: NN-VQFN PACKAGE (DIMENSIONS)')."""
+    (e.g. 'FIGURE X-Y: NN-VQFN PACKAGE (DIMENSIONS)'). Falls back to
+    content-based detection (does the table actually contain D and E
+    symbol rows?) if title matching fails — some datasheets stack a
+    title line followed immediately by a descriptive subtitle line
+    before the table, and title-tracking only keeps the last heading
+    seen, silently losing the 'PACKAGE (DIMENSIONS)' title text."""
+    title_match_result = None
+    content_fallback_result = None
+
     for title, block in find_titled_tables(markdown_text):
-        if re.search(r"PACKAGE\s*\(DIMENSIONS\)|MECHANICAL\s+DATA|PACKAGE\s+DIMENSIONS", title, re.IGNORECASE):
-            parsed = _parse_dimension_table(block)
-            if parsed:
-                return parsed
-    return None
+        title_matches = bool(re.search(
+            r"PACKAGE\s*\(DIMENSIONS\)|MECHANICAL\s+DATA|PACKAGE\s+DIMENSIONS", title, re.IGNORECASE
+        ))
+        parsed = _parse_dimension_table(block)
+        if not parsed:
+            continue
+        if title_matches and title_match_result is None:
+            title_match_result = parsed
+        elif "D" in parsed and "E" in parsed and content_fallback_result is None:
+            content_fallback_result = parsed
+
+    return title_match_result or content_fallback_result
 
 
 def compute_qfn_land_pattern_ipc7351(pkg_dims: dict[str, dict]) -> dict | None:
@@ -135,7 +150,6 @@ def compute_qfn_land_pattern_ipc7351(pkg_dims: dict[str, dict]) -> dict | None:
 
     pitch = val("E")
     body_d = val("D", "max") or val("D")
-    body_e = val("E2") and val("E")  # not used directly; body width handled via D/E BSC symbols separately
     lead_width = val("B", "max") or val("B")
     lead_length = val("L", "max") or val("L")
     epad_d2 = val("D2", "max") or val("D2")
@@ -172,10 +186,27 @@ def extract_footprint_dimensions(markdown_text: str) -> tuple[dict | None, list[
             "pad_span_y_mm": float | None,
             "thermal_pad_width_mm": float | None,
             "thermal_pad_length_mm": float | None,
+            "body_length_mm": float | None,  # overall package D — for body outline/courtyard
+            "body_width_mm": float | None,   # overall package E — for body outline/courtyard
         }
     Returns (None, warnings) if no usable dimension data was found.
     """
     warnings: list[str] = []
+
+    # Body D/E dimensions come from the raw package table regardless of
+    # which source (vendor land pattern vs IPC-7351 estimate) supplied
+    # the pad geometry — needed separately for body outline/courtyard.
+    pkg_dims_for_body = find_package_dimensions(markdown_text)
+    body_length_mm = None
+    body_width_mm = None
+    body_height_mm = None
+    if pkg_dims_for_body:
+        d_entry = pkg_dims_for_body.get("D", {})
+        e_entry = pkg_dims_for_body.get("E", {})
+        a_entry = pkg_dims_for_body.get("A", {})
+        body_length_mm = d_entry.get("max") or d_entry.get("nom") or d_entry.get("min")
+        body_width_mm = e_entry.get("max") or e_entry.get("nom") or e_entry.get("min")
+        body_height_mm = a_entry.get("max") or a_entry.get("nom") or a_entry.get("min")
 
     land_pattern = find_land_pattern_dimensions(markdown_text)
     if land_pattern:
@@ -192,6 +223,9 @@ def extract_footprint_dimensions(markdown_text: str) -> tuple[dict | None, list[
         thermal_l = g("Y2")
 
         if pitch and pad_width and pad_length:
+            if not body_length_mm or not body_width_mm:
+                warnings.append("No raw package dimension table found for body outline/courtyard "
+                                 "(D/E overall dimensions) — those features will be skipped if requested.")
             return {
                 "source": "vendor_land_pattern",
                 "pitch_mm": pitch,
@@ -201,14 +235,19 @@ def extract_footprint_dimensions(markdown_text: str) -> tuple[dict | None, list[
                 "pad_span_y_mm": pad_span_y,
                 "thermal_pad_width_mm": thermal_w,
                 "thermal_pad_length_mm": thermal_l,
+                "body_length_mm": body_length_mm,
+                "body_width_mm": body_width_mm,
+                "body_height_mm": body_height_mm,
             }, warnings
         warnings.append("Found a 'Recommended Land Pattern' table but couldn't parse required "
                          "columns (pitch/pad width/pad length) — falling back to package dimensions.")
 
-    pkg_dims = find_package_dimensions(markdown_text)
+    pkg_dims = pkg_dims_for_body
     if pkg_dims:
         computed = compute_qfn_land_pattern_ipc7351(pkg_dims)
         if computed:
+            computed["body_width_mm"] = body_width_mm
+            computed["body_height_mm"] = body_height_mm
             warnings.append("No vendor-provided land pattern table found — using an IPC-7351 "
                              "nominal-density ESTIMATE computed from raw package dimensions. "
                              "This is a first-pass footprint; verify pad geometry against the "

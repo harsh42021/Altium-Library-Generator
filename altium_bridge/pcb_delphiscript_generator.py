@@ -95,10 +95,58 @@ def _compute_qfn_pad_positions(pin_count: int, pitch_mil: float, span_x_mil: flo
     return positions  # index 0 == pin 1
 
 
-def generate_pcb_delphiscript(component: dict, footprint_dims: dict) -> str:
+def _emit_rectangle_outline(lines: list[str], x1: float, y1: float, x2: float, y2: float,
+                             layer_expr: str, line_width_mil: float, comment: str) -> None:
+    """Emits 4 Track objects forming a rectangle outline. Track object
+    properties (.X1/.Y1/.X2/.Y2/.Width/.Layer) are standard/well-
+    established but not independently re-verified in this specific
+    generator — same BEST-EFFORT caveat as other newer properties."""
+    edges = [(x1, y1, x2, y1), (x2, y1, x2, y2), (x2, y2, x1, y2), (x1, y2, x1, y1)]
+    lines.append(f"    {{ {comment} }}")
+    for ex1, ey1, ex2, ey2 in edges:
+        lines.append("    NewTrack := PCBServer.PCBObjectFactory(eTrackObject, eNoDimension, eCreate_Default);")
+        lines.append("    If NewTrack = Nil Then Exit;")
+        lines.append(f"    NewTrack.X1 := MilsToCoord({round(ex1, 2)});")
+        lines.append(f"    NewTrack.Y1 := MilsToCoord({round(ey1, 2)});")
+        lines.append(f"    NewTrack.X2 := MilsToCoord({round(ex2, 2)});")
+        lines.append(f"    NewTrack.Y2 := MilsToCoord({round(ey2, 2)});")
+        lines.append(f"    NewTrack.Width := MilsToCoord({line_width_mil});")
+        lines.append(f"    NewTrack.Layer := {layer_expr};")
+        lines.append("    NewComp.AddPCBObject(NewTrack);")
+    lines.append("")
+
+
+def _emit_cross_mark(lines: list[str], size_mil: float, layer_expr: str, line_width_mil: float) -> None:
+    """Emits a small '+' mark at the origin (0,0) — the component's
+    placement/pick-and-place reference point."""
+    lines.append("    { Pick-and-place center reference cross }")
+    for ex1, ey1, ex2, ey2 in [(-size_mil, 0, size_mil, 0), (0, -size_mil, 0, size_mil)]:
+        lines.append("    NewTrack := PCBServer.PCBObjectFactory(eTrackObject, eNoDimension, eCreate_Default);")
+        lines.append("    If NewTrack = Nil Then Exit;")
+        lines.append(f"    NewTrack.X1 := MilsToCoord({round(ex1, 2)});")
+        lines.append(f"    NewTrack.Y1 := MilsToCoord({round(ey1, 2)});")
+        lines.append(f"    NewTrack.X2 := MilsToCoord({round(ex2, 2)});")
+        lines.append(f"    NewTrack.Y2 := MilsToCoord({round(ey2, 2)});")
+        lines.append(f"    NewTrack.Width := MilsToCoord({line_width_mil});")
+        lines.append(f"    NewTrack.Layer := {layer_expr};")
+        lines.append("    NewComp.AddPCBObject(NewTrack);")
+    lines.append("")
+
+
+def generate_pcb_delphiscript(
+    component: dict, footprint_dims: dict,
+    courtyard_layer: int | None = None,
+    body_outline_layer: int | None = None,
+    body_3d_layer: int | None = None,
+) -> str:
     """component: the same dict shape produced by pipeline.py (has
     'pins', each with 'pin_number').
-    footprint_dims: output of mechanical_dimension_parser.extract_footprint_dimensions."""
+    footprint_dims: output of mechanical_dimension_parser.extract_footprint_dimensions.
+    courtyard_layer/body_outline_layer: mechanical layer numbers (1-25+)
+    to draw those features on, per PCBServer.LayerUtils.MechanicalLayer(N)
+    — the modern (AD19+) way to address an arbitrary mechanical layer
+    number, confirmed via Altium's own KB and community scripts. Either
+    can be None to skip that feature."""
     part_number = _pas_string_escape(component["part_number"])
     pins = component["pins"]
     pin_count = len(pins)
@@ -110,6 +158,12 @@ def generate_pcb_delphiscript(component: dict, footprint_dims: dict) -> str:
     span_y_mil = _mm(footprint_dims.get("pad_span_y_mm") or 0)
     thermal_w_mil = _mm(footprint_dims["thermal_pad_width_mm"]) if footprint_dims.get("thermal_pad_width_mm") else None
     thermal_l_mil = _mm(footprint_dims["thermal_pad_length_mm"]) if footprint_dims.get("thermal_pad_length_mm") else None
+    body_length_mil = _mm(footprint_dims["body_length_mm"]) if footprint_dims.get("body_length_mm") else None
+    body_width_mil = _mm(footprint_dims["body_width_mm"]) if footprint_dims.get("body_width_mm") else None
+    body_height_mil = _mm(footprint_dims["body_height_mm"]) if footprint_dims.get("body_height_mm") else None
+
+    COURTYARD_MARGIN_MIL = _mm(0.25)  # standard 0.25mm courtyard clearance beyond body edge
+    CROSS_MARK_SIZE_MIL = _mm(0.5)    # pick-and-place center reference cross, half-length per arm
 
     # Numbered pins only (exclude placeholder 'EP'-style entries — the
     # exposed pad is handled separately as its own dedicated pad, not
@@ -151,7 +205,9 @@ def generate_pcb_delphiscript(component: dict, footprint_dims: dict) -> str:
     lines.append("     - Exposed pad (if present) size and any thermal via requirements —")
     lines.append("       this generator creates the thermal pad itself but does NOT add a")
     lines.append("       thermal via array; add those manually per your fab's thermal design")
-    lines.append("     - Silkscreen/courtyard were NOT generated — add per your library standard")
+    lines.append("     - Courtyard clearance (0.25mm) and outline line widths are generic")
+    lines.append("       defaults, not vendor-specified — adjust per your library standard")
+    lines.append("     - 3D body was NOT generated (not yet implemented in this generator)")
     lines.append("}")
     lines.append("")
     lines.append("Procedure CreateFootprint;")
@@ -159,6 +215,8 @@ def generate_pcb_delphiscript(component: dict, footprint_dims: dict) -> str:
     lines.append("    CurrentLib   : IPCB_Library;")
     lines.append("    NewComp      : IPCB_LibComponent;")
     lines.append("    NewPad       : IPCB_Pad;")
+    lines.append("    NewTrack     : IPCB_Track;")
+    lines.append("    NewBody      : IPCB_ComponentBody;")
     lines.append("Begin")
     lines.append("    If PCBServer = Nil Then Exit;")
     lines.append("    CurrentLib := PCBServer.GetCurrentPCBLibrary;")
@@ -178,8 +236,8 @@ def generate_pcb_delphiscript(component: dict, footprint_dims: dict) -> str:
         designator = _pas_string_escape(str(pin["pin_number"]))
         label = _pas_string_escape(pin.get("display_label") or pin["primary_name"])
         x, y = round(x, 2), round(y, 2)
-        top_x = pad_l_mil if rotated else pad_w_mil
-        top_y = pad_w_mil if rotated else pad_l_mil
+        top_x = pad_w_mil if rotated else pad_l_mil
+        top_y = pad_l_mil if rotated else pad_w_mil
         lines.append(f"    {{ Pin {designator} ({label}) }}")
         lines.append("    NewPad := PCBServer.PCBObjectFactory(ePadObject, eNoDimension, eCreate_Default);")
         lines.append("    If NewPad = Nil Then Exit;")
@@ -187,8 +245,10 @@ def generate_pcb_delphiscript(component: dict, footprint_dims: dict) -> str:
         lines.append(f"    NewPad.Y := MilsToCoord({y});")
         lines.append(f"    NewPad.TopXSize := MilsToCoord({top_x});")
         lines.append(f"    NewPad.TopYSize := MilsToCoord({top_y});")
-        lines.append(f"    NewPad.BottomXSize := MilsToCoord({top_x});")
-        lines.append(f"    NewPad.BottomYSize := MilsToCoord({top_y});")
+        lines.append("    NewPad.TopShape := eRectangular;")
+        lines.append("    NewPad.Rotation := 0;  { orientation is fully encoded by the")
+        lines.append("                              TopXSize/TopYSize swap above, per side —")
+        lines.append("                              explicit 0 avoids inheriting a stray default }")
         lines.append("    NewPad.HoleSize := MilsToCoord(0);  { SMD pad, no drill }")
         lines.append("    NewPad.Layer := eTopLayer;")
         lines.append(f"    NewPad.Name := '{designator}';")
@@ -206,12 +266,74 @@ def generate_pcb_delphiscript(component: dict, footprint_dims: dict) -> str:
         lines.append("    NewPad.Y := MilsToCoord(0);")
         lines.append(f"    NewPad.TopXSize := MilsToCoord({thermal_w_mil});")
         lines.append(f"    NewPad.TopYSize := MilsToCoord({thermal_l_mil});")
-        lines.append(f"    NewPad.BottomXSize := MilsToCoord({thermal_w_mil});")
-        lines.append(f"    NewPad.BottomYSize := MilsToCoord({thermal_l_mil});")
+        lines.append("    NewPad.TopShape := eRectangular;")
+        lines.append("    NewPad.Rotation := 0;")
         lines.append("    NewPad.HoleSize := MilsToCoord(0);")
         lines.append("    NewPad.Layer := eTopLayer;")
         lines.append(f"    NewPad.Name := '{designator}';")
         lines.append("    NewComp.AddPCBObject(NewPad);")
+        lines.append("")
+
+    if body_outline_layer is not None and body_length_mil and body_width_mil:
+        bx = body_length_mil / 2
+        by = body_width_mil / 2
+        _emit_rectangle_outline(
+            lines, -bx, -by, bx, by,
+            f"PCBServer.LayerUtils.MechanicalLayer({body_outline_layer})",
+            line_width_mil=_mm(0.1),
+            comment="Component body outline",
+        )
+    elif body_outline_layer is not None:
+        lines.append("    { Component body outline SKIPPED — no body length/width dimensions")
+        lines.append("      were found in the datasheet's package dimension table. }")
+        lines.append("")
+
+    if courtyard_layer is not None and body_length_mil and body_width_mil:
+        cx = body_length_mil / 2 + COURTYARD_MARGIN_MIL
+        cy = body_width_mil / 2 + COURTYARD_MARGIN_MIL
+        _emit_rectangle_outline(
+            lines, -cx, -cy, cx, cy,
+            f"PCBServer.LayerUtils.MechanicalLayer({courtyard_layer})",
+            line_width_mil=_mm(0.05),
+            comment=f"Component courtyard (body + {round(COURTYARD_MARGIN_MIL, 2)} mil standard clearance)",
+        )
+        _emit_cross_mark(
+            lines, CROSS_MARK_SIZE_MIL,
+            f"PCBServer.LayerUtils.MechanicalLayer({courtyard_layer})",
+            line_width_mil=_mm(0.05),
+        )
+    elif courtyard_layer is not None:
+        lines.append("    { Courtyard SKIPPED — no body length/width dimensions were found")
+        lines.append("      in the datasheet's package dimension table. }")
+        lines.append("")
+
+    if body_3d_layer is not None and body_length_mil and body_width_mil and body_height_mil:
+        bx = body_length_mil / 2
+        by = body_width_mil / 2
+        lines.append("    { 3D Body — EXPERIMENTAL, least-verified part of this generator.")
+        lines.append("      No confirmed working DelphiScript example for IPCB_ComponentBody")
+        lines.append("      creation could be found despite dedicated research (unlike every")
+        lines.append("      other object type in this script). Property names below are best-")
+        lines.append("      effort inferences, not verified. If this errors, the reliable")
+        lines.append("      fallback is Altium's native Place > 3D Body > Extruded command —")
+        lines.append("      manual, but takes under a minute for a simple box body. }")
+        lines.append("    NewBody := PCBServer.PCBObjectFactory(eComponentBodyObject, eNoDimension, eCreate_Default);")
+        lines.append("    If NewBody = Nil Then Exit;")
+        lines.append("    NewBody.Layer := PCBServer.LayerUtils.MechanicalLayer("
+                      f"{body_3d_layer});  {{ BEST-EFFORT: verify this is the right layer property }}")
+        lines.append(f"    NewBody.StandoffHeight := MilsToCoord(0);  {{ BEST-EFFORT property name }}")
+        lines.append(f"    NewBody.OverallHeight := MilsToCoord({body_height_mil});  {{ BEST-EFFORT property name }}")
+        lines.append("    { BEST-EFFORT: outline definition for the body's footprint shape.")
+        lines.append("      IPCB_ComponentBody outlines are commonly built from a TPolySegment")
+        lines.append("      or a SetOutlineContour-style call rather than simple X/Y/Size")
+        lines.append("      properties like a pad — this part in particular could not be")
+        lines.append("      confirmed and is the most likely line to fail. }")
+        lines.append(f"    { '{' } NewBody.SetOutlineContour(...) — rectangle from "
+                      f"(-{bx}, -{by}) to ({bx}, {by}) mils, NOT CONFIRMED { '}' }")
+        lines.append("    NewComp.AddPCBObject(NewBody);")
+        lines.append("")
+    elif body_3d_layer is not None:
+        lines.append("    { 3D Body SKIPPED — missing body length/width/height dimensions }")
         lines.append("")
 
     lines.append("    PCBServer.SendMessageToRobots(CurrentLib.Board.I_ObjectAddress, c_Broadcast, "
