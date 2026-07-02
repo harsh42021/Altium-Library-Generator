@@ -317,11 +317,9 @@ def sanitize_group_title(title: str) -> str:
 
 
 def side_for_group_name(group: str) -> str:
+    """Left/right only — no vertical (top/bottom) sides, so every pin
+    renders at a horizontal (0°/180°) orientation."""
     g = group.upper()
-    if any(k in g for k in ("POWER", "GROUND", "SUPPLY")):
-        return "bottom"
-    if any(k in g for k in ("CLOCK", "OSCILLATOR", "JTAG", "RESET", "STRAP", "MISC", "CONFIGURATION", "TEST")):
-        return "left"
     if any(k in g for k in ("SGMII", "SERDES", "ETHERNET", "PCIE", "MEDIA", "1588", "PTP")):
         return "right"
     return "left"

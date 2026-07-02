@@ -1,12 +1,17 @@
 """
 Classifies pins into functional groups (POWER, SPI1, I2C1, UART, DDR, etc.)
-and assigns each group a symbol side (left/right/top/bottom), following
-the convention: inputs/control-in on the left, outputs/high-speed-out on
-the right, power typically top/bottom.
+and assigns each group a symbol side (left/right — horizontal only, no
+top/bottom), following the convention: inputs/control-in on the left,
+outputs/high-speed-out on the right. All pins render at 0°/180°
+orientation; vertical (top/bottom) placement is deliberately not used.
 
 Also handles multi-part symbol splitting for components with >20 pins,
 grouping related interfaces onto the same sub-part where possible so a
-designer isn't hunting across parts for one SPI bus.
+designer isn't hunting across parts for one SPI bus. A single group
+that alone exceeds the threshold (e.g. a large GPIO/Miscellaneous
+bucket) gets split across consecutive sub-parts rather than left
+oversized, since unlike a bus (SPI, I2C) there's no correctness reason
+those pins need to stay together on one part.
 """
 from __future__ import annotations
 import re
@@ -19,7 +24,7 @@ MULTI_PART_PIN_THRESHOLD = 20
 # Ordered: more specific patterns first, so e.g. "SPI1_MOSI" doesn't get
 # caught by a generic GPIO rule. Each entry: (group_name_template, regex, side)
 INTERFACE_PATTERNS: list[tuple[str, str, str]] = [
-    ("POWER",     r"^(V(DD|CC|SS|BAT|IN|OUT|REF|PP)|GND|AGND|DGND|VSSA|VDDA)\d*[A-Z]*$", "bottom"),
+    ("POWER",     r"^(V(DD|CC|SS|BAT|IN|OUT|REF|PP)|GND|AGND|DGND|VSSA|VDDA)\d*[A-Z]*$", "left"),
     ("RESET",     r"^(N?RST|RESET|NRST)\d*$", "left"),
     ("CLOCK",     r"^(X?TAL|OSC|CLK)(IN|OUT)?\d*$", "left"),
     ("JTAG_SWD",  r"^(TCK|TMS|TDI|TDO|TRST|SWDIO|SWCLK|SWO)$", "left"),
@@ -97,22 +102,15 @@ def classify_pin(pin: Pin) -> tuple[str, str]:
     if detected_role != DiffPairRole.NONE:
         pin.diff_pair_role = detected_role
 
-    # GPIO pins whose PRIMARY (main) function is GPIOx get their own
-    # group regardless of which datasheet table they were cross-
-    # referenced against. Grouping follows the same "main function"
-    # rule as the pin label: a pin datasheet-grouped under a catch-all
-    # "Miscellaneous" table because it happens to default to GPIO
-    # should still be grouped with other GPIOs, not lumped in with
-    # unrelated analog/control pins (ISET, RES_REF, TEST_MODE, etc.)
-    # that share that table for unrelated reasons. This also keeps the
-    # multi-part splitter from producing one oversized mixed bucket.
-    if re.match(GPIO_FALLBACK_PATTERN, pin.primary_name.strip().upper()):
-        return "GPIO", "left"
-
     # If the structured datasheet parser already assigned a functional
     # group from the vendor's own table organization (e.g. "TABLE 3-3:
     # SGMII INTERFACE PINS"), trust it over regex guessing — it's
-    # ground truth from the datasheet, not an inference.
+    # ground truth from the datasheet, not an inference. This is the
+    # ONLY grouping signal used for pins the structured parser handled:
+    # no secondary-function overrides (e.g. pulling GPIO-primary pins
+    # into their own bucket) get applied on top of it, since that
+    # regrouped pins away from what the datasheet's own tables say
+    # their primary function actually is.
     if pin.functional_group and pin.side_hint:
         return pin.functional_group, pin.side_hint
 
@@ -128,10 +126,10 @@ def classify_pin(pin: Pin) -> tuple[str, str]:
 
     # No specific interface matched — check power by name even without pattern hit
     if pin.electrical_type == ElectricalType.POWER:
-        return "POWER", "bottom"
+        return "POWER", "left"
 
     if pin.is_no_connect:
-        return "NO_CONNECT", "bottom"
+        return "NO_CONNECT", "left"
 
     if re.match(GPIO_FALLBACK_PATTERN, pin.primary_name.strip().upper()):
         return "GPIO", "left"
@@ -156,20 +154,40 @@ def build_groups(pins: list[Pin]) -> list[PinGroup]:
     ]
 
 
-def assign_multi_part(groups: list[PinGroup], pin_count: int) -> bool:
+def _split_oversized_groups(groups: list[PinGroup], max_size: int) -> list[PinGroup]:
+    """A single group larger than max_size (e.g. a big Miscellaneous/GPIO
+    bucket with no further datasheet-driven subdivision available) gets
+    split into multiple same-named PinGroup chunks, each within the
+    size limit. Unlike splitting a bus (SPI, I2C) across parts — which
+    would be wrong, since a bus needs to stay together — an
+    undifferentiated catch-all group has no such constraint, so
+    splitting it purely by pin count is safe."""
+    result: list[PinGroup] = []
+    for g in groups:
+        if len(g.pins) <= max_size:
+            result.append(g)
+            continue
+        for start in range(0, len(g.pins), max_size):
+            chunk = g.pins[start:start + max_size]
+            result.append(PinGroup(name=g.name, pins=chunk, side=g.side, part_index=1))
+    return result
+
+
+def assign_multi_part(groups: list[PinGroup], pin_count: int) -> tuple[list[PinGroup], bool]:
     """If pin_count exceeds threshold, splits groups across sub-parts.
     Strategy: each interface group stays whole within one part (never
-    split a bus across parts); parts are filled greedily by pin count,
-    with POWER duplicated onto every part per Altium convention (each
-    sub-part typically carries its own power pins so it can be placed
-    independently on the sheet)."""
+    split a bus across parts) UNLESS the group alone exceeds the
+    per-part target, in which case it's chunked by pin count (see
+    _split_oversized_groups). Parts are filled greedily by pin count.
+    Returns (possibly-expanded groups list, is_multi_part)."""
     if pin_count <= MULTI_PART_PIN_THRESHOLD:
         for g in groups:
             g.part_index = 1
-        return False
+        return groups, False
 
-    # Simple greedy bin-packing by pin count, ~20 pins per part target
     target_per_part = MULTI_PART_PIN_THRESHOLD
+    groups = _split_oversized_groups(groups, target_per_part)
+
     power_groups = [g for g in groups if g.name == "POWER"]
     other_groups = sorted(
         [g for g in groups if g.name != "POWER"],
@@ -187,17 +205,16 @@ def assign_multi_part(groups: list[PinGroup], pin_count: int) -> bool:
 
     total_parts = part_index
     for pg in power_groups:
-        pg.part_index = 1  # primary power group lives on part 1; duplication
-                            # onto other parts is handled by the DelphiScript
-                            # generator (needs actual pin objects, not just
-                            # the group reference)
+        pg.part_index = 1  # primary power group lives on part 1; not
+                            # duplicated onto other parts (see note in
+                            # earlier version of this function)
 
-    return total_parts > 1
+    return groups, total_parts > 1
 
 
 def classify_component(part_number: str, pins: list[Pin], package_type: str | None = None) -> ComponentRecord:
     groups = build_groups(pins)
-    is_multi = assign_multi_part(groups, len(pins))
+    groups, is_multi = assign_multi_part(groups, len(pins))
 
     return ComponentRecord(
         part_number=part_number,

@@ -13,15 +13,39 @@ the same instructions, so they travel with the file):
     4. Save the library (Ctrl+S) — the script does not reliably save
        for you across all Altium versions; see notes below.
 
-ACCURACY NOTE: the object-creation calls here (SchObjectFactory,
-AddSchComponent, the TPinElectrical enum, TRotationBy90, Point/
-MilsToCoord) are sourced directly from Altium's published Scripting
-API documentation. A few properties (Pin.Length, SchComponent.
-PartCount, and the save call) could not be confirmed against current
-docs and are marked BEST-EFFORT below — verify these against Altium's
-Script IDE autocomplete (Ctrl+Space on the object) before relying on
-this for a production library, and report back what you find so this
-generator can be corrected rather than guessed at twice.
+ACCURACY NOTE / DEBUGGING HISTORY (read this if pins still don't appear):
+Object creation uses direct assignment (SchComponent := SchServer.
+SchObjectFactory(...)) rather than the Supports(...) interface-query
+pattern shown in some Altium doc examples — that pattern threw
+"Undeclared identifier" errors for ISch_Lib, ISch_Component, etc. in
+real-world testing against Altium 24/25.
+
+For attaching pins/rectangles to the component, two different Altium
+doc pages show two different-looking patterns for two different
+contexts (defining a library symbol vs. placing a component instance
+on a sheet). An earlier version of this generator switched to
+CurrentLib.RegisterSchObjectInContainer(...), based on the
+sheet-placement pattern, and that produced a component with the
+correct part count but zero visible/selectable pins. This version
+reverts to SchComponent.AddSchObject(...) — confirmed directly in
+Altium's ISch_GraphicalObject documentation ("Component.AddSchObject
+(Rect); Component.AddSchObject(Pin);") — combined with each object's
+OwnerPartId property (also directly documented) for correct multi-part
+assignment, which was the other candidate missing piece.
+
+If pins STILL don't appear after this version, the next thing to try
+is Altium's own bundled example scripts rather than another inference
+from documentation: search your Altium install directory for *.pas
+files (may require enabling an "Examples" component via Altium's
+installer/updater if none are found), or pull a real working example
+from https://github.com/Altium-Designer-addons/scripting-reference
+— specifically anything under "Delphiscript Scripts/Sch" that creates
+a library component. A verified-working example beats further
+inference at this point.
+
+One property (Pin.PinLength) and the document-save call still could
+not be confirmed against current docs and are marked BEST-EFFORT
+below.
 """
 from __future__ import annotations
 
@@ -29,8 +53,12 @@ from __future__ import annotations
 GRID = 100
 PIN_LENGTH = 200          # BEST-EFFORT: verify Pin.Length / PinLength property name in Altium
 PIN_SPACING = 100
-BODY_MARGIN = 100         # gap between pin tip row and body edge on the perpendicular axis
 MIN_BODY_DIM = 200
+CHAR_WIDTH_ESTIMATE = 60  # rough mils/character at default Altium pin-name font size —
+                           # used only to size the body wide enough that left- and right-
+                           # side pin name labels don't overlap in the middle; doesn't need
+                           # to be exact, just generous enough to avoid collisions
+LABEL_MARGIN = 200        # extra clearance beyond the longest label on each side
 
 # Maps our ElectricalType enum values (see models/pin.py) to Altium's
 # verified TPinElectrical constants. UNKNOWN has no Altium equivalent —
@@ -59,47 +87,60 @@ def _pas_string_escape(s: str) -> str:
 def _side_orientation(side: str) -> str:
     """Altium pin Orientation is the direction the pin's electrical
     (outer) end points AWAY from the body, per TRotationBy90.
-    BEST-EFFORT mapping — verify pin direction visually on first run
-    and swap 0/180 or 90/270 here if pins point the wrong way for your
-    Altium version."""
+    Horizontal only (0°/180°) — vertical sides are never assigned
+    upstream, so top/bottom aren't handled here.
+    BEST-EFFORT: verify pin direction visually on first run and swap
+    0/180 here if pins point the wrong way for your Altium version."""
     return {
         "left": "eRotate180",   # pin extends further left, body is to its right
         "right": "eRotate0",    # pin extends further right, body is to its left
-        "top": "eRotate90",
-        "bottom": "eRotate270",
     }.get(side, "eRotate180")
+
+
+def _estimate_label_width(label: str) -> int:
+    """Rough mils-width estimate for a pin name label, used only to
+    size the component body wide enough to prevent left/right pin
+    labels from overlapping in the middle — doesn't need to be exact."""
+    return len(label or "") * CHAR_WIDTH_ESTIMATE
 
 
 def _layout_pins(component: dict) -> dict:
     """Computes (x, y, side) for every pin in every sub-part, grid-
     snapped, and the bounding rectangle for each sub-part's body.
+    Left/right (horizontal) placement only. Body width is sized from
+    the longest pin label on either side, not a fixed minimum — a
+    fixed-width body is what caused left- and right-side pin name
+    labels to overlap in the middle when labels were longer than the
+    (previously hardcoded) body width could accommodate.
     Returns {part_index: {"pins": [...], "body": (x1,y1,x2,y2)}}."""
     parts: dict[int, dict] = {}
 
-    # group pins by part_index, then by side within each part
     pins_by_part: dict[int, dict[str, list]] = {}
     for group in component["groups"]:
         part_idx = group["part_index"]
-        pins_by_part.setdefault(part_idx, {"left": [], "right": [], "top": [], "bottom": []})
-        side = group["side"] if group["side"] in ("left", "right", "top", "bottom") else "left"
+        pins_by_part.setdefault(part_idx, {"left": [], "right": []})
+        side = group["side"] if group["side"] in ("left", "right") else "left"
         for pin in group["pins"]:
             pins_by_part[part_idx][side].append((pin, group["name"]))
 
     for part_idx, sides in pins_by_part.items():
-        left_n = len(sides["left"])
-        right_n = len(sides["right"])
-        top_n = len(sides["top"])
-        bottom_n = len(sides["bottom"])
+        left_pins = sides["left"]
+        right_pins = sides["right"]
 
-        body_height = max(MIN_BODY_DIM, (max(left_n, right_n) + 1) * PIN_SPACING)
-        body_width = max(MIN_BODY_DIM, (max(top_n, bottom_n) + 1) * PIN_SPACING)
-        # snap to grid
+        body_height = max(MIN_BODY_DIM, (max(len(left_pins), len(right_pins)) + 1) * PIN_SPACING)
         body_height = ((body_height + GRID - 1) // GRID) * GRID
+
+        all_labels = [
+            (pin.get("display_label") or pin["primary_name"])
+            for pin, _ in left_pins + right_pins
+        ]
+        max_label_width = max((_estimate_label_width(lbl) for lbl in all_labels), default=0)
+        body_width = max(MIN_BODY_DIM, max_label_width + LABEL_MARGIN)
         body_width = ((body_width + GRID - 1) // GRID) * GRID
 
         placed = []
 
-        def place_vertical_side(pins, x_body_edge, direction_sign, side_name):
+        def place_side(pins, x_body_edge, direction_sign, side_name):
             n = len(pins)
             start_y = body_height - (body_height - (n - 1) * PIN_SPACING) // 2 if n > 1 else body_height // 2
             for i, (pin, group_name) in enumerate(pins):
@@ -108,19 +149,8 @@ def _layout_pins(component: dict) -> dict:
                 x_tip = x_body_edge + direction_sign * PIN_LENGTH
                 placed.append((pin, group_name, x_tip, y, side_name))
 
-        def place_horizontal_side(pins, y_body_edge, direction_sign, side_name):
-            n = len(pins)
-            start_x = -( (n - 1) * PIN_SPACING ) // 2 if n > 1 else 0
-            for i, (pin, group_name) in enumerate(pins):
-                x = start_x + i * PIN_SPACING
-                x = (x // GRID) * GRID
-                y_tip = y_body_edge + direction_sign * PIN_LENGTH
-                placed.append((pin, group_name, x, y_tip, side_name))
-
-        place_vertical_side(sides["left"], 0, -1, "left")
-        place_vertical_side(sides["right"], body_width, 1, "right")
-        place_horizontal_side(sides["top"], body_height, 1, "top")
-        place_horizontal_side(sides["bottom"], 0, -1, "bottom")
+        place_side(left_pins, 0, -1, "left")
+        place_side(right_pins, body_width, 1, "right")
 
         parts[part_idx] = {
             "pins": placed,
@@ -156,7 +186,6 @@ def generate_delphiscript(component: dict) -> str:
     lines.append("    SchComponent : ISch_Component;")
     lines.append("    R            : ISch_Rectangle;")
     lines.append("    Pin          : ISch_Pin;")
-    lines.append("    PartIdx      : Integer;")
     lines.append("Begin")
     lines.append("    If SchServer = Nil Then Exit;")
     lines.append("    CurrentLib := SchServer.GetCurrentSchDocument;")
@@ -169,14 +198,19 @@ def generate_delphiscript(component: dict) -> str:
     lines.append("        Exit;")
     lines.append("    End;")
     lines.append("")
-    lines.append("    If Not Supports(SchServer.SchObjectFactory(eSchComponent, eCreate_Default), ISch_Component, SchComponent) Then Exit;")
+    lines.append("    SchComponent := SchServer.SchObjectFactory(eSchComponent, eCreate_Default);")
+    lines.append("    If SchComponent = Nil Then Exit;")
     lines.append(f"    SchComponent.LibReference := '{part_number}';")
     lines.append(f"    SchComponent.ComponentDescription := 'Auto-generated from datasheet extraction — VERIFY before use';")
-    lines.append("    SchComponent.CurrentPartID := 1;")
     lines.append(f"    SchComponent.PartCount := {len(layout)};  {{ BEST-EFFORT property name — verify }}")
     lines.append("    SchComponent.DisplayMode := 0;")
-    lines.append("    CurrentLib.AddSchComponent(SchComponent);")
-    lines.append("    CurrentLib.CurrentSchComponent := SchComponent;")
+    lines.append("    { NOTE: SchComponent is NOT added to the library yet — every pin and")
+    lines.append("      rectangle below is built into this in-memory component object first.")
+    lines.append("      AddSchComponent is called ONCE at the very end, after everything is")
+    lines.append("      in place. Registering it earlier risked the library storing an empty")
+    lines.append("      snapshot while pins were added to an orphaned copy — which is the")
+    lines.append("      most likely explanation if a previous run showed 'component created'")
+    lines.append("      but nothing appeared in the library. }")
     lines.append("")
 
     for part_idx in sorted(layout.keys()):
@@ -184,12 +218,14 @@ def generate_delphiscript(component: dict) -> str:
         x1, y1, x2, y2 = data["body"]
         lines.append(f"    { '{' } --- Part {part_idx} --- { '}' }")
         lines.append(f"    SchComponent.CurrentPartID := {part_idx};")
-        lines.append("    If Not Supports(SchServer.SchObjectFactory(eRectangle, eCreate_Default), ISch_Rectangle, R) Then Exit;")
+        lines.append("    R := SchServer.SchObjectFactory(eRectangle, eCreate_Default);")
+        lines.append("    If R = Nil Then Exit;")
         lines.append(f"    R.Location := Point(MilsToCoord({x1}), MilsToCoord({y1}));")
         lines.append(f"    R.Corner   := Point(MilsToCoord({x2}), MilsToCoord({y2}));")
         lines.append("    R.LineWidth := eSmall;")
         lines.append("    R.AreaColor := $00E0E0E0;")
         lines.append("    R.IsSolid := True;")
+        lines.append(f"    R.OwnerPartId := {part_idx};")
         lines.append("    SchComponent.AddSchObject(R);")
         lines.append("")
 
@@ -199,20 +235,26 @@ def generate_delphiscript(component: dict) -> str:
             designator = _pas_string_escape(str(pin["pin_number"]))
             orientation = _side_orientation(side)
             lines.append(f"    { '{' } Pin {designator} ({label}) — group: {group_name} { '}' }")
-            lines.append("    If Not Supports(SchServer.SchObjectFactory(ePin, eCreate_Default), ISch_Pin, Pin) Then Exit;")
+            lines.append("    Pin := SchServer.SchObjectFactory(ePin, eCreate_Default);")
+            lines.append("    If Pin = Nil Then Exit;")
             lines.append(f"    Pin.Designator := '{designator}';")
             lines.append(f"    Pin.Name := '{label}';")
             lines.append(f"    Pin.Electrical := {elec};")
             lines.append(f"    Pin.Orientation := {orientation};")
             lines.append(f"    Pin.Location := Point(MilsToCoord({x}), MilsToCoord({y}));")
             lines.append(f"    Pin.PinLength := MilsToCoord({PIN_LENGTH});  {{ BEST-EFFORT property name — verify }}")
+            lines.append(f"    Pin.OwnerPartId := {part_idx};")
             lines.append("    SchComponent.AddSchObject(Pin);")
             lines.append("")
 
     lines.append("    SchComponent.CurrentPartID := 1;")
+    lines.append("    CurrentLib.AddSchComponent(SchComponent);")
+    lines.append("    CurrentLib.CurrentSchComponent := SchComponent;")
     lines.append("    CurrentLib.GraphicallyInvalidate;")
     lines.append("")
-    lines.append("    ShowMessage('Component created. Press Ctrl+S to save the library.');")
+    lines.append("    ShowMessage('Component created. Press Ctrl+S to save the library.' + #13#10#13#10 +")
+    lines.append("        'If nothing is visible: open the SCH Library panel (View > Workspace Panels > SCH > SCH Library),' + #13#10 +")
+    lines.append(f'        \'select "{part_number}" in the list, then View > Fit Document to zoom to it.\');')
     lines.append("End;")
     lines.append("")
 

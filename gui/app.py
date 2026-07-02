@@ -50,6 +50,7 @@ class App(tk.Tk):
 
         self.markdown_path = tk.StringVar()
         self.pdf_path = tk.StringVar()
+        self.reference_schematic_path = tk.StringVar()
         self.part_number = tk.StringVar()
         self.status_text = tk.StringVar(value="Ready.")
         self._component = None  # last successful ComponentRecord
@@ -73,12 +74,19 @@ class App(tk.Tk):
         ttk.Entry(frm_inputs, textvariable=self.pdf_path, width=60).grid(row=2, column=1, sticky="w", **pad)
         ttk.Button(frm_inputs, text="Browse...", command=self._browse_pdf).grid(row=2, column=2, **pad)
 
+        ttk.Label(frm_inputs, text="Reference Schematic (Markdown, optional):").grid(row=3, column=0, sticky="w", **pad)
+        ttk.Entry(frm_inputs, textvariable=self.reference_schematic_path, width=60).grid(row=3, column=1, sticky="w", **pad)
+        ttk.Button(frm_inputs, text="Browse...", command=self._browse_reference_schematic).grid(row=3, column=2, **pad)
+
         ttk.Label(
             frm_inputs,
             text="Tip: a Markdown conversion of the datasheet gives far more reliable pin-table extraction\n"
-                 "than the raw PDF. The PDF is used as a fallback if Markdown extraction finds nothing.",
+                 "than the raw PDF. The PDF is used as a fallback if Markdown extraction finds nothing.\n"
+                 "If a reference design schematic is provided, pins found on exactly one of its sheets are\n"
+                 "grouped by that sheet's function instead of the datasheet table — this reflects how the\n"
+                 "pins are actually used on a real board, not just their generic datasheet description.",
             foreground="#555",
-        ).grid(row=3, column=0, columnspan=3, sticky="w", padx=8)
+        ).grid(row=4, column=0, columnspan=3, sticky="w", padx=8)
 
         frm_actions = ttk.Frame(self)
         frm_actions.pack(fill="x", **pad)
@@ -122,6 +130,14 @@ class App(tk.Tk):
             if not self.part_number.get():
                 self.part_number.set(Path(path).stem)
 
+    def _browse_reference_schematic(self):
+        path = filedialog.askopenfilename(
+            title="Select reference schematic Markdown file",
+            filetypes=[("Markdown files", "*.md"), ("All files", "*.*")],
+        )
+        if path:
+            self.reference_schematic_path.set(path)
+
     def _set_output_text(self, text: str):
         self.txt_output.configure(state="normal")
         self.txt_output.delete("1.0", tk.END)
@@ -132,6 +148,7 @@ class App(tk.Tk):
         part = self.part_number.get().strip()
         md = self.markdown_path.get().strip() or None
         pdf = self.pdf_path.get().strip() or None
+        ref_schem = self.reference_schematic_path.get().strip() or None
 
         if not part:
             messagebox.showwarning(APP_TITLE, "Enter a part number first.")
@@ -147,12 +164,12 @@ class App(tk.Tk):
         self.status_text.set("Running extraction...")
         self._set_output_text("Running extraction — this can take a few seconds on large datasheets...\n")
 
-        thread = threading.Thread(target=self._run_extraction_thread, args=(part, md, pdf), daemon=True)
+        thread = threading.Thread(target=self._run_extraction_thread, args=(part, md, pdf, ref_schem), daemon=True)
         thread.start()
 
-    def _run_extraction_thread(self, part, md, pdf):
+    def _run_extraction_thread(self, part, md, pdf, ref_schem):
         try:
-            component = run_pipeline(part, md, pdf)
+            component = run_pipeline(part, md, pdf, reference_schematic_path=ref_schem)
             data = dataclasses.asdict(component)
             # round-trip through json_default-compatible dict so enum
             # values match what build_report expects (string values)
